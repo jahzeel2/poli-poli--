@@ -1,0 +1,123 @@
+.incident-form-container {
+  padding: 10px;
+}
+
+/* Título dentro de cada paso */
+.step-title {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.sub-header {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Contenedor del mapa */
+#incident-form-map {
+    height: 350px; /* Altura fija */
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Contenedor del pad de firma */
+.signature-pad-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px; /* Ancho máximo */
+    height: 200px; /* Altura fija */
+    margin: auto; /* Centrado */
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    touch-action: none; /* Evitar scroll en táctil */
+}
+
+/* Canvas del pad de firma */
+canvas.signature-pad {
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    cursor: crosshair;
+}
+
+/* Tarjeta para cada involucrado */
+.involved-person-card {
+    background-color: #f9f9f9; /* Fondo ligero */
+    border: 1px solid #e0e0e0; /* Borde sutil */
+}
+.involved-header {
+    background-color: #f0f0f0;
+    padding: 8px 16px !important;
+    min-height: 48px !important;
+    border-bottom: 1px solid #e0e0e0;
+}
+.involved-header .mat-mdc-card-title {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0 !important; /* Sobrescribir margen */
+}
+//.involved-header button[mat-icon-button] {
+    /* Ajustar tamaño si es necesario */
+    /* width: 36px; height: 36px; line-height: 36px; */
+//}
+
+/* Indicador de carga */
+.loading-shade {
+  position: absolute; /* Posicionar sobre el contenido del contenedor padre si tiene position:relative */
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 10; /* Encima del stepper */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px; /* Coincidir con contenedor si aplica */
+}
+.loading-shade span {
+    margin-left: 10px;
+    font-style: italic;
+    color: #555;
+}
+
+/* Spinner dentro de botón */
+button[mat-raised-button] .mat-mdc-progress-spinner {
+    display: inline-block;
+    vertical-align: middle;
+}
+button[mat-raised-button] .me-2 {
+    margin-right: 8px;
+}
+
+/* Clases de Grid (si no usas Bootstrap globalmente) */
+.row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+.col-md-4, .col-md-6 { padding: 0 15px; box-sizing: border-box; width: 100%; }
+@media (min-width: 768px) {
+    .col-md-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+    .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+}
+.w-100 { width: 100% !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.pt-3 { padding-top: 1rem !important; }
+.text-center { text-align: center !important; }
+.d-flex { display: flex !important; }
+.justify-content-end { justify-content: flex-end !important; }
+.justify-content-between { justify-content: space-between !important; }
+.align-items-center { align-items: center !important; }
+.text-muted { color: #6c757d !important; }
+.text-danger { color: var(--danger-color, #dc3545) !important; } /* Para asteriscos */
+
+/* Ajustes específicos para MatFormField */
+.mat-mdc-form-field {
+    width: 100%; /* Asegurar ancho completo */
+}

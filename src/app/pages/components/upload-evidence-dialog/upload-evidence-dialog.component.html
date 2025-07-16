@@ -1,0 +1,82 @@
+<h1 mat-dialog-title>Subir Evidencia Fotográfica</h1>
+
+<mat-dialog-content>
+  <mat-stepper linear #stepper>
+
+    <mat-step [stepControl]="findIncidentForm" label="Buscar Expediente">
+      <form [formGroup]="findIncidentForm">
+        <ng-template matStepLabel>Buscar Expediente</ng-template>
+        <p>Ingrese el número de expediente del siniestro al que desea adjuntar fotos.</p>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nº Expediente</mat-label>
+          <input matInput type="number" formControlName="expedienteId" required #expedienteInput>
+          <mat-error *ngIf="findIncidentForm.get('expedienteId')?.hasError('required')">
+            El Nº de Expediente es requerido.
+          </mat-error>
+           <mat-error *ngIf="findIncidentForm.get('expedienteId')?.hasError('pattern')">
+            Ingrese solo números.
+          </mat-error>
+          <mat-error *ngIf="findIncidentForm.get('expedienteId')?.hasError('notFound')">
+            Expediente no encontrado. Verifique el número.
+          </mat-error>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button mat-raised-button color="primary" (click)="findIncident()" [disabled]="isLoading || findIncidentForm.invalid">
+            <span *ngIf="!isLoading">Buscar y Siguiente <mat-icon>chevron_right</mat-icon></span>
+            <span *ngIf="isLoading" class="d-flex align-items-center">
+                <mat-progress-spinner diameter="20" mode="indeterminate" class="me-2"></mat-progress-spinner> Buscando...
+            </span>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="uploadPhotosForm" label="Adjuntar Fotos">
+      <form [formGroup]="uploadPhotosForm">
+        <ng-template matStepLabel>Adjuntar Fotos</ng-template>
+        <p>Seleccione hasta <strong>{{ MAX_FILES }}</strong> fotos para el expediente <strong>#{{ incidentId }}</strong>.</p>
+
+        <button type="button" mat-stroked-button color="primary" (click)="fileInput.click()" [disabled]="selectedFiles.length >= MAX_FILES || isLoading">
+          <mat-icon>add_photo_alternate</mat-icon> Seleccionar Archivos
+        </button>
+        <input hidden type="file" #fileInput accept="image/*" multiple (change)="onFileSelected($event)">
+        <span class="ms-2 text-muted file-count">{{ selectedFiles.length }} / {{ MAX_FILES }} archivos seleccionados.</span>
+
+        <div class="row mt-3 preview-container" *ngIf="selectedFiles.length > 0">
+          <div *ngFor="let fileData of selectedFiles; let i = index" class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+            <mat-card class="preview-card mat-elevation-z2">
+              <img mat-card-image [src]="fileData.preview" [alt]="fileData.file.name" class="preview-image">
+              <mat-card-actions align="end" class="preview-actions">
+                <button mat-icon-button color="warn" type="button" (click)="removeSelectedFile(i)" matTooltip="Quitar foto" [disabled]="isLoading">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </mat-card-actions>
+              <mat-card-footer class="preview-footer" [matTooltip]="fileData.file.name">
+                  {{ fileData.file.name | slice:0:15 }}{{ fileData.file.name.length > 15 ? '...' : '' }}
+              </mat-card-footer>
+            </mat-card>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+          <button mat-stroked-button matStepperPrevious type="button" [disabled]="isLoading">
+            <mat-icon>chevron_left</mat-icon> Anterior
+          </button>
+          <button mat-raised-button color="primary" (click)="uploadFiles()" [disabled]="isLoading || selectedFiles.length === 0">
+             <span *ngIf="!isLoading"> <mat-icon>cloud_upload</mat-icon> Subir Fotos </span>
+             <span *ngIf="isLoading" class="d-flex align-items-center">
+                <mat-progress-spinner diameter="20" mode="indeterminate" class="me-2"></mat-progress-spinner> Guardando...
+             </span>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+  </mat-stepper>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()" [disabled]="isLoading">Cancelar</button>
+</mat-dialog-actions>

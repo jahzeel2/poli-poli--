@@ -1,0 +1,63 @@
+<div class="container">
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <mat-progress-bar
+      mode="determinate"
+      [value]="(currentStep / totalSteps) * 100">
+    </mat-progress-bar>
+    <div class="step-counter">
+      Paso {{currentStep}} de {{totalSteps}}
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="step-content">
+    <!-- Paso 1 -->
+    <app-siniestros
+      *ngIf="currentStep === 1"
+      (nextStep)="handleNextStep($event)"
+      [initialData]="siniestroData">
+    </app-siniestros>
+
+    <!-- Paso 2 -->
+    <app-condiciones-climaticas
+      *ngIf="currentStep === 2"
+      (nextStep)="handleNextStep($event)"
+      (previousStep)="previousStep()"
+      [initialData]="siniestroData">
+    </app-condiciones-climaticas>
+
+    <!-- Paso 3 -->
+    <app-detalles-via
+      *ngIf="currentStep === 3"
+      (nextStep)="handleNextStep($event)"
+      (previousStep)="previousStep()"
+      [initialData]="siniestroData">
+    </app-detalles-via>
+
+ <!-- Paso 4 -->
+    <!-- <app-agregar-participe
+    *ngIf="currentStep === 4"
+    (previusStep)="previousStep()"
+    [initialData]="siniestroData"
+    (participeGuardado)="onParticipeGuardado($event)">
+  </app-agregar-participe> -->
+
+
+
+    <!-- Paso 5 -->
+    <app-upload-photos
+    *ngIf="currentStep === 5"
+    (previousStep)="previousStep()"
+    (submit)="finalizarProceso()"
+    [initialData]="siniestroData?.fotos">
+  </app-upload-photos>
+
+  <!-- Footer -->
+  <div class="footer-actions">
+    <button mat-stroked-button color="warn" routerLink="/">
+      <mat-icon>cancel</mat-icon>
+      Cancelar
+    </button>
+  </div>
+</div>

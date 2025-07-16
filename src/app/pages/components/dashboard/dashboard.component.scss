@@ -1,0 +1,73 @@
+/* --- Estilos Generales del Dashboard --- */
+.dashboard-container {
+  padding: 10px;
+}
+.dashboard-container h1 {
+    display: flex; align-items: center; font-size: 1.75rem;
+    font-weight: 600; color: #333;
+}
+.dashboard-container h1 mat-icon { margin-right: 10px; font-size: 1.8rem; vertical-align: middle; }
+
+/* --- Estilos Tarjetas de Estadísticas --- */
+.stat-card { border-radius: 8px !important; color: var(--text-white) !important; margin-bottom: 1rem; }
+.stat-card .mat-mdc-card-content { padding: 1rem 1.25rem; }
+.stat-card.bg-primary { background-color: var(--primary-color) !important; }
+.stat-card.bg-success { background-color: var(--success-color) !important; }
+.stat-card.bg-warning { background-color: var(--warning-color) !important; color: var(--text-dark) !important; }
+.stat-card.bg-danger { background-color: var(--danger-color) !important; }
+.stat-title { font-size: 0.9rem; margin-bottom: 2px; opacity: 0.9; font-weight: 500; }
+.stat-value { font-size: 2rem; font-weight: 700; }
+.stat-icon { font-size: 3.5rem; opacity: 0.4; }
+
+/* --- Estilos Tarjetas Generales y Cabeceras --- */
+.mat-mdc-card { margin-bottom: 1.5rem; }
+.card-header-custom { background-color: #f8f9fa !important; padding: 0.75rem 1.25rem !important; border-bottom: 1px solid #dee2e6 !important; font-weight: 600; border-radius: 8px 8px 0 0 !important; }
+.card-header-custom .mat-mdc-card-title { font-size: 1.1rem !important; font-weight: 600 !important; margin-bottom: 0 !important; display: flex; align-items: center; }
+.card-header-custom .mat-mdc-card-title mat-icon { margin-right: 8px; }
+.mat-mdc-card-content.p-0 { padding: 0 !important; }
+.position-relative { position: relative; }
+
+/* --- Estilos Tabla Siniestros Recientes --- */
+.loading-shade { position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.6); z-index: 1; display: flex; align-items: center; justify-content: center; }
+.table-responsive { overflow-x: auto; width: 100%; }
+.mat-mdc-table { width: 100%; }
+.mat-mdc-table .mat-mdc-cell, .mat-mdc-table .mat-mdc-header-cell { padding: 0.75rem 1rem; vertical-align: middle; }
+.mat-mdc-chip-option { height: 24px !important; line-height: 24px !important; padding: 0 10px !important; border-radius: 12px !important; font-size: 0.75rem !important; font-weight: 500 !important; box-shadow: none !important; cursor: default !important; }
+.mat-mdc-chip-option.mat-primary { background-color: var(--success-color) !important; color: white !important; }
+.mat-mdc-chip-option.mat-accent { background-color: var(--warning-color) !important; color: var(--text-dark) !important; }
+.mat-mdc-chip-option.mat-warn { background-color: var(--danger-color) !important; color: white !important; }
+.mat-mdc-chip-option:not(.mat-primary):not(.mat-accent):not(.mat-warn) { background-color: var(--secondary-color) !important; color: white !important; }
+.mat-mdc-table .mat-mdc-cell:last-child { white-space: nowrap; }
+.mat-mdc-table .mat-mdc-cell button[mat-icon-button] { width: 36px; height: 36px; line-height: 36px; }
+.mat-mdc-table .mat-mdc-cell button[mat-icon-button] mat-icon { font-size: 1.1rem; }
+.mat-mdc-table .mat-mdc-cell button[color="primary"] { color: #0d6efd; }
+.mat-mdc-table .mat-mdc-cell button[color="accent"] { color: #6f42c1; }
+.mat-mdc-table .mat-mdc-cell button[color="warn"] { color: #dc3545; }
+
+/* --- Estilos Acceso Rápido --- */
+.d-grid .mat-mdc-stroked-button { text-align: left; justify-content: flex-start; padding: 10px 15px !important; margin-bottom: 0.5rem; color: var(--primary-color) !important; border-color: rgba(13, 110, 253, 0.5) !important; width: 100%; }
+.d-grid .mat-mdc-stroked-button mat-icon { margin-right: 10px; color: var(--primary-color); }
+.d-grid .mat-mdc-stroked-button:hover { background-color: rgba(13, 110, 253, 0.05) !important; }
+
+/* --- Estilos Notificaciones / Actividad Reciente --- */
+.notification-list-container {
+    max-height: 400px; /* Limitar altura y permitir scroll */
+    overflow-y: auto;
+}
+.mat-mdc-list .mat-mdc-list-item { height: auto !important; padding-top: 12px !important; padding-bottom: 12px !important; border-bottom: 1px solid #eee; }
+.mat-mdc-list .mat-mdc-list-item:last-child { border-bottom: none; }
+.mat-mdc-list .mat-mdc-list-item .mdc-list-item__content { align-items: flex-start !important; }
+.mat-mdc-list .mat-mdc-list-item-icon.notification-icon { margin-top: 4px; margin-right: 16px; }
+.notification-content { flex-grow: 1; }
+.notification-title { font-size: 0.9rem; font-weight: 500; color: #333; margin-bottom: 4px; line-height: 1.3; }
+.notification-details { font-size: 0.8rem; color: #6c757d; display: flex; align-items: center; flex-wrap: wrap; }
+.notification-details .mat-icon.sub-icon { font-size: 1rem; height: 1rem; width: 1rem; line-height: 1rem; vertical-align: text-bottom; margin-right: 4px; }
+.notification-details .me-2 { margin-right: 0.75rem; }
+.fst-italic { font-style: italic! important; }
+.text-center { text-align: center !important; }
+.p-4 { padding: 1.5rem !important; } /* Padding para mensaje 'No hay actividad' */
+
+/* Animación opcional para botón de refrescar */
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+

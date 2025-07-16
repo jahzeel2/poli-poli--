@@ -1,0 +1,125 @@
+<h1 mat-dialog-title>Detalles del Siniestro: Exp #{{ data?.id_expediente || 'N/D' }}</h1>
+
+<mat-dialog-content class="mat-typography">
+  <p *ngIf="!data" class="text-center p-4">Cargando datos...</p>
+
+  <div *ngIf="data">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+
+        <mat-tab label="Datos Generales">
+            <div class="tab-content-padding">
+                <dl class="row gy-2">
+                    <dt class="col-sm-4 text-muted">Nº Expediente</dt>
+                    <dd class="col-sm-8 fw-bold">{{ data.id_expediente }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Fecha Creación</dt>
+                    <dd class="col-sm-8">{{ data.fechaCreacion | date:'dd/MM/yyyy HH:mm':'UTC' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Usuario Creación</dt>
+                    <dd class="col-sm-8">{{ data.usuarioCrea || 'N/D' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Estado</dt>
+                    <dd class="col-sm-8">{{ data.nombreEstado || 'N/D' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Última Modificación</dt>
+                    <dd class="col-sm-8">{{ data.fechaModificacion ? (data.fechaModificacion | date:'dd/MM/yyyy HH:mm':'UTC') : 'N/A' }} por {{ data.usuarioModifica || 'N/A' }}</dd>
+
+                    <mat-divider class="col-12 my-3"></mat-divider>
+
+                    <dt class="col-sm-4 text-muted">Fecha Hecho</dt>
+                    <dd class="col-sm-8">{{ data.fechaHecho | date:'dd/MM/yyyy':'UTC' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Hora Hecho</dt>
+                    <dd class="col-sm-8">{{ data.horaHecho ? (data.horaHecho | slice:0:5) : 'N/D' }}</dd> <dt class="col-sm-4 text-muted">Lugar</dt>
+                    <dd class="col-sm-8">{{ data.lugarHecho || 'N/D' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Tipo Hecho</dt>
+                    <dd class="col-sm-8">{{ data.tipoHecho || 'N/D' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Coordenadas</dt>
+                    <dd class="col-sm-8">{{ data.coordHecho || 'N/D' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Escribiente</dt>
+                    <dd class="col-sm-8">{{ data.escribienteHecho || 'N/D' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Perito</dt>
+                    <dd class="col-sm-8">{{ data.nombrePerito ? data.apellidoPerito + ', ' + data.nombrePerito : 'N/D' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Fotógrafo</dt>
+                    <dd class="col-sm-8">{{ data.nombreFotografo ? data.apellidoFotografo + ', ' + data.nombreFotografo : 'N/D' }}</dd>
+
+                    <mat-divider class="col-12 my-3"></mat-divider>
+
+                    <ng-container *ngFor="let key of objectKeys(data)">
+                        <ng-container *ngIf="shouldDisplayKeyInDetailsList(key)">
+                            <dt class="col-sm-4 text-muted">{{ formatKey(key) }}</dt>
+                            <dd class="col-sm-8">
+                                <span *ngIf="isISODateString(data[key])">{{ data[key] | date:'dd/MM/yyyy HH:mm':'UTC' }}</span>
+                                <span *ngIf="isBoolean(data[key])">{{ data[key] ? 'Sí' : 'No' }}</span>
+                                <span *ngIf="!isISODateString(data[key]) && !isBoolean(data[key])">{{ data[key] }}</span>
+                            </dd>
+                        </ng-container>
+                    </ng-container>
+                </dl>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Partícipes ({{ data.participes?.length || 0 }})">
+             <div class="tab-content-padding">
+                <h4 *ngIf="!data.participes || data.participes.length === 0" class="text-muted text-center mt-3">
+                    No hay partícipes registrados para este siniestro.
+                </h4>
+
+                <div *ngIf="data.participes && data.participes.length > 0">
+                    <mat-list>
+                        <ng-container *ngFor="let p of data.participes; let i = index">
+                             <mat-list-item class="participe-item">
+                                <mat-icon matListItemIcon color="primary">person</mat-icon>
+                                <div class="participe-details">
+                                    <div matListItemTitle class="fw-bold">{{ p.apellido }}, {{ p.nombre }}</div>
+                                    <div matListItemLine><strong>Rol:</strong> {{ p.tipoUsuario || 'N/A' }}</div>
+                                    <div matListItemLine><strong>DNI:</strong> {{ p.dni || 'N/D' }}</div>
+                                    <div matListItemLine><strong>Nacimiento:</strong> {{ p.fechaDeNacimiento | date:'dd/MM/yyyy':'UTC' }}</div>
+                                    <div matListItemLine><strong>Domicilio:</strong> {{ p.domicilio || 'N/D' }}</div>
+                                    </div>
+                             </mat-list-item>
+                             <mat-divider *ngIf="i < data.participes.length - 1"></mat-divider>
+                        </ng-container>
+                    </mat-list>
+                </div>
+             </div>
+        </mat-tab>
+
+        <mat-tab label="Firma y Fotos">
+            <div class="tab-content-padding">
+                <div *ngIf="data.firma">
+                    <h6>Firma Registrada:</h6>
+                    <img [src]="data.firma" alt="Firma" class="img-fluid border rounded bg-white signature-image">
+                </div>
+                <div *ngIf="!data.firma" class="mt-3">
+                    <p class="text-muted fst-italic">No hay firma registrada.</p>
+                </div>
+
+                <mat-divider class="my-3"></mat-divider>
+                <h6>Fotos Adjuntas</h6>
+                 <div class="row photo-gallery">
+                    <div class="col-md-3 col-sm-4 col-6 mb-3" *ngIf="data.fotoSiniestro1"><img [src]="data.fotoSiniestro1" class="img-thumbnail" alt="Foto 1"></div>
+                    <div class="col-md-3 col-sm-4 col-6 mb-3" *ngIf="data.fotoSiniestro2"><img [src]="data.fotoSiniestro2" class="img-thumbnail" alt="Foto 2"></div>
+                    <div class="col-md-3 col-sm-4 col-6 mb-3" *ngIf="data.fotoSiniestro3"><img [src]="data.fotoSiniestro3" class="img-thumbnail" alt="Foto 3"></div>
+                    <div class="col-md-3 col-sm-4 col-6 mb-3" *ngIf="data.fotoSiniestro4"><img [src]="data.fotoSiniestro4" class="img-thumbnail" alt="Foto 4"></div>
+                    <div class="col-md-3 col-sm-4 col-6 mb-3" *ngIf="data.fotoSiniestro5"><img [src]="data.fotoSiniestro5" class="img-thumbnail" alt="Foto 5"></div>
+                 </div>
+                 <p *ngIf="!data.fotoSiniestro1 && !data.fotoSiniestro2 && !data.fotoSiniestro3 && !data.fotoSiniestro4 && !data.fotoSiniestro5" class="text-muted fst-italic text-center mt-3">
+                     No hay fotos adjuntas para este siniestro.
+                 </p>
+            </div>
+        </mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="closeDialog()">Cerrar</button>
+  </mat-dialog-actions>

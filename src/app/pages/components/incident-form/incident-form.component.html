@@ -1,0 +1,269 @@
+<div class="incident-form-container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>
+          <mat-icon>{{ isEditing ? 'edit_note' : 'add_circle_outline' }}</mat-icon>
+          {{ isEditing ? 'Editar Siniestro #' + editingIncidentId : 'Nuevo Siniestro' }}
+      </h1>
+      <button mat-stroked-button routerLink="/siniestros">
+          <mat-icon>arrow_back</mat-icon> Volver a la Lista
+      </button>
+  </div>
+
+  <div class="loading-shade" *ngIf="isLoading || isLoadingDropdowns">
+      <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
+      <span class="ms-2">{{ isLoading ? 'Guardando...' : 'Cargando datos...' }}</span>
+  </div>
+
+  <mat-stepper [linear]="isLinear" #stepper (selectionChange)="onStepChange($event)">
+
+      <mat-step [stepControl]="informacionBasicaForm" label="Información Básica">
+          <form [formGroup]="informacionBasicaForm">
+              <h3 class="step-title">Paso 1: Información Básica del Hecho</h3>
+              <div class="row">
+                  <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Fecha del Hecho</mat-label>
+                          <input matInput type="date" formControlName="fecha" required>
+                          <mat-error *ngIf="informacionBasicaForm.get('fecha')?.hasError('required')">
+                              Fecha requerida
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Hora del Hecho</mat-label>
+                          <input matInput type="time" formControlName="hora">
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Tipo de Siniestro</mat-label>
+                          <mat-select formControlName="tipo" required>
+                              <mat-option *ngFor="let tipo of tiposSiniestro" [value]="tipo">
+                                  {{ tipo }}
+                              </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="informacionBasicaForm.get('tipo')?.hasError('required')">
+                              Tipo requerido
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+              </div>
+               <div class="mb-3">
+                  <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Escribiente</mat-label>
+                      <input matInput formControlName="escribiente" placeholder="Nombre del escribiente">
+                  </mat-form-field>
+              </div>
+              <div class="row">
+                  <div class="col-md-6 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Perito Interviniente</mat-label>
+                          <mat-select formControlName="peritoId">
+                              <mat-option [value]="null">-- Ninguno --</mat-option>
+                              <mat-option *ngFor="let p of peritos" [value]="p.id">
+                                  {{ p.apellido }}, {{ p.nombre }} ({{p.dni}})
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                       <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Fotógrafo</mat-label>
+                          <mat-select formControlName="fotografoId">
+                              <mat-option [value]="null">-- Ninguno --</mat-option>
+                              <mat-option *ngFor="let f of fotografos" [value]="f.id">
+                                  {{ f.apellido }}, {{ f.nombre }} ({{f.dni}})
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+              </div>
+              <div class="d-flex justify-content-end mt-3">
+                  <button mat-raised-button color="primary" matStepperNext>
+                      Siguiente <mat-icon>chevron_right</mat-icon>
+                  </button>
+              </div>
+          </form>
+      </mat-step>
+
+      <mat-step [stepControl]="ubicacionForm" label="Ubicación">
+           <form [formGroup]="ubicacionForm">
+               <h3 class="step-title">Paso 2: Ubicación del Hecho</h3>
+               <mat-form-field appearance="outline" class="w-100 mb-3">
+                  <mat-label>Dirección / Lugar</mat-label>
+                  <input matInput formControlName="lugar" placeholder="Ej: Av. Sarmiento 1234" required>
+                   <mat-error *ngIf="ubicacionForm.get('lugar')?.hasError('required')">
+                      Lugar requerido
+                  </mat-error>
+               </mat-form-field>
+               <div class="row mb-3">
+                   <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Tipo de Vía</mat-label>
+                          <mat-select formControlName="id_via">
+                              <mat-option [value]="null">-- No especificado --</mat-option>
+                              <mat-option *ngFor="let v of vias" [value]="v.id">
+                                  {{ v.nombre }}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                   </div>
+               </div>
+               <div class="mb-3">
+                   <label class="form-label d-block mb-2">Coordenadas (Haga clic en el mapa)</label>
+                   <div #mapCanvas id="incident-form-map" class="leaflet-map"></div>
+                   <div class="row mt-2">
+                       <div class="col-md-6">
+                          <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Latitud</mat-label>
+                              <input matInput formControlName="latitude" readonly>
+                          </mat-form-field>
+                       </div>
+                       <div class="col-md-6">
+                           <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Longitud</mat-label>
+                              <input matInput formControlName="longitude" readonly>
+                          </mat-form-field>
+                       </div>
+                   </div>
+               </div>
+               <div class="d-flex justify-content-between mt-3">
+                  <button mat-stroked-button matStepperPrevious>
+                      <mat-icon>chevron_left</mat-icon> Anterior
+                  </button>
+                  <button mat-raised-button color="primary" matStepperNext>
+                      Siguiente <mat-icon>chevron_right</mat-icon>
+                  </button>
+               </div>
+           </form>
+       </mat-step>
+
+      <mat-step [stepControl]="detallesCondicionesForm" label="Detalles">
+           <form [formGroup]="detallesCondicionesForm">
+               <h3 class="step-title">Paso 3: Detalles y Condiciones Ambientales</h3>
+               <mat-form-field appearance="outline" class="w-100 mb-3">
+                  <mat-label>Descripción del Hecho</mat-label>
+                  <textarea matInput formControlName="descripcion" rows="4"></textarea>
+               </mat-form-field>
+               <div class="row">
+                   <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Cond. Climáticas</mat-label>
+                          <mat-select formControlName="cond_climaticas">
+                              <mat-option *ngFor="let c of condicionesClimaticas" [value]="c">{{ c }}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                   </div>
+                   <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Iluminación</mat-label>
+                          <mat-select formControlName="iluminacion">
+                              <mat-option *ngFor="let i of iluminaciones" [value]="i">{{ i }}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                   </div>
+                   <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Visibilidad</mat-label>
+                          <mat-select formControlName="visibilidad">
+                              <mat-option *ngFor="let v of visibilidades" [value]="v">{{ v }}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                   </div>
+               </div>
+
+               <div class="row" *ngIf="isEditing">
+                   <div class="col-md-6 mb-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                           <mat-label>Estado del Expediente</mat-label>
+                           <mat-select formControlName="estadoExpte">
+                               <mat-option [value]="null">-- Seleccione Estado --</mat-option>
+                               <mat-option *ngFor="let e of estados" [value]="e.id">{{ e.nombre }}</mat-option>
+                           </mat-select>
+                           </mat-form-field>
+                   </div>
+               </div>
+
+               <h4 class="mt-3 sub-header">Expediente Judicial (Opcional)</h4>
+               <div class="row">
+                    <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Nº Exp. Judicial</mat-label>
+                          <input matInput formControlName="nro_expediente">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Comunicación</mat-label>
+                          <input matInput formControlName="comunicacion">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Tramita en</mat-label>
+                          <input matInput formControlName="tramita">
+                      </mat-form-field>
+                    </div>
+               </div>
+                <div class="d-flex justify-content-between mt-3">
+                  <button mat-stroked-button matStepperPrevious> <mat-icon>chevron_left</mat-icon> Anterior </button>
+                  <button mat-raised-button color="primary" matStepperNext> Siguiente <mat-icon>chevron_right</mat-icon> </button>
+               </div>
+           </form>
+       </mat-step>
+
+      <mat-step [stepControl]="involucradosForm" label="Involucrados">
+          <form [formGroup]="involucradosForm">
+               <h3 class="step-title">Paso 4: Personas Involucradas</h3>
+               <div formArrayName="personas">
+                  <div *ngFor="let personaGroup of personasArray.controls; let i=index" [formGroupName]="i" class="involved-person-card mb-4">
+                       <mat-card class="mat-elevation-z2">
+                          <mat-card-header class="d-flex justify-content-between align-items-center involved-header">
+                              <mat-card-title class="mb-0">Involucrado {{ i + 1 }}</mat-card-title>
+                              <button mat-icon-button color="warn" type="button" *ngIf="personasArray.length > 1" (click)="quitarPersona(i)" matTooltip="Quitar"><mat-icon>delete</mat-icon></button>
+                          </mat-card-header>
+                          <mat-card-content class="pt-3">
+                              <input type="hidden" formControlName="id_participes">
+                              <div class="row">
+                                   <div class="col-md-4 mb-3"> <mat-form-field appearance="outline" class="w-100"> <mat-label>Tipo Usuario</mat-label> <mat-select formControlName="tipoUsuario" required> <mat-option *ngFor="let tu of tiposUsuario" [value]="tu">{{ tu }}</mat-option> </mat-select> <mat-error>Requerido</mat-error> </mat-form-field> </div>
+                                   <div class="col-md-4 mb-3"> <mat-form-field appearance="outline" class="w-100"> <mat-label>DNI</mat-label> <input matInput formControlName="dni" required> <mat-error>Requerido</mat-error> </mat-form-field> </div>
+                                   <div class="col-md-4 mb-3"> <mat-form-field appearance="outline" class="w-100"> <mat-label>Fecha Nac.</mat-label> <input matInput [matDatepicker]="pickerNac" formControlName="fechaDeNacimiento"> <mat-datepicker-toggle matIconSuffix [for]="pickerNac"></mat-datepicker-toggle> <mat-datepicker #pickerNac></mat-datepicker> </mat-form-field> </div>
+                               </div>
+                               <div class="row">
+                                   <div class="col-md-6 mb-3"> <mat-form-field appearance="outline" class="w-100"> <mat-label>Nombre</mat-label> <input matInput formControlName="nombre" required> <mat-error>Requerido</mat-error> </mat-form-field> </div>
+                                    <div class="col-md-6 mb-3"> <mat-form-field appearance="outline" class="w-100"> <mat-label>Apellido</mat-label> <input matInput formControlName="apellido" required> <mat-error>Requerido</mat-error> </mat-form-field> </div>
+                               </div>
+                               <div class="mb-3"> <mat-form-field appearance="outline" class="w-100"> <mat-label>Domicilio</mat-label> <input matInput formControlName="domicilio"> </mat-form-field> </div>
+                          </mat-card-content>
+                       </mat-card>
+                  </div>
+               </div>
+               <button mat-stroked-button color="primary" type="button" (click)="agregarPersona()" class="mb-3"> <mat-icon>add</mat-icon> Añadir Involucrado </button>
+               <div class="d-flex justify-content-between mt-3">
+                  <button mat-stroked-button matStepperPrevious> <mat-icon>chevron_left</mat-icon> Anterior </button>
+                  <button mat-raised-button color="primary" matStepperNext> Siguiente <mat-icon>chevron_right</mat-icon> </button>
+               </div>
+           </form>
+      </mat-step>
+
+      <mat-step [stepControl]="firmaForm" label="Firma">
+           <form [formGroup]="firmaForm">
+               <h3 class="step-title">Paso 5: Firma del Oficial</h3>
+               <p class="text-muted" *ngIf="!isEditing">Realice la firma en el recuadro. <span class="text-danger">*</span></p>
+               <p class="text-muted" *ngIf="isEditing">Puede añadir o reemplazar la firma si es necesario (si limpia el recuadro, deberá firmar de nuevo para guardar cambios en la firma).</p>
+               <div class="signature-pad-container mb-3"> <canvas #sigPadCanvas class="signature-pad"></canvas> </div>
+               <div class="text-center mb-4"> <button mat-stroked-button type="button" (click)="clearSignature()"> <mat-icon>clear</mat-icon> Limpiar Firma </button> </div>
+               <div class="d-flex justify-content-between mt-3">
+                   <button mat-stroked-button matStepperPrevious> <mat-icon>chevron_left</mat-icon> Anterior </button>
+                   <button mat-raised-button color="primary" (click)="submitForm()" [disabled]="isLoading">
+                       <span *ngIf="!isLoading"> <mat-icon>save</mat-icon> {{ isEditing ? 'Actualizar Siniestro' : 'Finalizar y Guardar' }} </span>
+                       <span *ngIf="isLoading" class="d-flex align-items-center"> <mat-progress-spinner diameter="20" mode="indeterminate" class="me-2"></mat-progress-spinner> Guardando... </span>
+                   </button>
+               </div>
+           </form>
+      </mat-step>
+
+  </mat-stepper>
+
+</div>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">policia-cientifica</string>
+    <string name="title_activity_main">policia-cientifica</string>
+    <string name="package_name">com.jahzeel.dev</string>
+    <string name="custom_url_scheme">com.jahzeel.dev</string>
+</resources>

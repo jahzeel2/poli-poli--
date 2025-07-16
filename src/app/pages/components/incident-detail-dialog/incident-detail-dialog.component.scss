@@ -1,0 +1,100 @@
+.mat-mdc-dialog-content {
+  max-height: 70vh; /* Limitar altura y habilitar scroll */
+  padding-bottom: 20px !important; /* Espacio inferior */
+}
+
+/* Padding para el contenido de las pestañas */
+.tab-content-padding {
+    padding: 20px 5px; /* Ajustar padding */
+}
+
+/* Estilo para la lista de definición (dl, dt, dd) */
+dl.row dt {
+  font-weight: 600;
+  color: #555; /* Slightly darker than text-muted */
+}
+dl.row dd {
+    word-break: break-word; /* Evitar overflow */
+    margin-bottom: 0.5rem; /* Espacio entre filas */
+}
+
+/* Imagen de la firma */
+.signature-image {
+  max-height: 150px;
+  display: block;
+  margin-top: 10px;
+  border: 1px solid #eee;
+}
+
+/* Galería de fotos */
+.photo-gallery {
+    margin-top: 1rem;
+}
+.img-thumbnail {
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,.075);
+}
+
+
+/* Estilos para la lista de partícipes */
+mat-list {
+    padding-top: 0;
+}
+.participe-item.mat-mdc-list-item {
+    height: auto !important; /* Altura automática */
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #eee; /* Separador sutil */
+}
+.participe-item:last-child {
+    border-bottom: none;
+}
+.mat-mdc-list .mat-mdc-list-item-icon {
+    margin-top: 4px; /* Ajustar posición icono */
+    margin-right: 16px; /* Espacio a la derecha del icono */
+    color: rgba(0,0,0,0.54);
+}
+.participe-details {
+    flex-grow: 1; /* Ocupar espacio restante */
+}
+.participe-item .mat-mdc-list-item-line {
+    white-space: normal !important; /* Permitir wrap */
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.4;
+}
+.participe-item .mat-mdc-list-item-line strong {
+    color: #555; /* Resaltar etiquetas */
+}
+.participe-item .mat-mdc-list-item-title {
+    margin-bottom: 4px; /* Espacio bajo el título */
+}
+
+
+/* Utilizar clases de grid si Bootstrap está disponible globalmente */
+.row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+.col-sm-4, .col-sm-8, .col-12, .col-md-3, .col-sm-4, .col-6 { position: relative; width: 100%; padding: 0 15px; box-sizing: border-box;}
+@media (min-width: 576px) {
+    .col-sm-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+    .col-sm-8 { flex: 0 0 66.6667%; max-width: 66.6667%; }
+    .col-sm-6 { flex: 0 0 50%; max-width: 50%; }
+}
+@media (min-width: 768px) {
+     .col-md-3 { flex: 0 0 25%; max-width: 25%; }
+     .col-md-4 { flex: 0 0 33.3333%; max-width: 33.3333%; } /* Añadir para grid en fotos */
+}
+.gy-2 { --bs-gutter-y: 0.5rem; } /* Simular Bootstrap gutter Y */
+dl.row > * { margin-bottom: var(--bs-gutter-y); }
+
+.my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.fst-italic { font-style: italic !important; }
+.text-muted { color: #6c757d !important; }
+.fw-bold { font-weight: 600 !important; } /* Bootstrap bold */
+.text-center { text-align: center !important; }

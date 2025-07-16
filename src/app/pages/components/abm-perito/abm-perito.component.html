@@ -1,0 +1,38 @@
+<app-fil-habilitar-perito (emmit)="emitir($event)"></app-fil-habilitar-perito>
+<ng-container *ngIf="vista">
+<br />
+<div class="alert alert-primary" role="alert">
+  <h1><u> CARGA DE PERSONAL INTERVINIENTE</u></h1>
+</div>
+
+  <div class="container">
+    <div class="input-group flex-nowrap">
+      <form (ngSubmit)="doAction()">
+        <label for="nombre"><b>Nombre:</b></label>
+        <legend >{{item.nombre}}</legend>
+        <label for="nombre"><b>Apellido:</b></label>
+        <legend >{{item.apellido}}</legend>
+        <label for="nombre"><b> DNI:</b></label>
+        <legend >{{item.dni}}</legend>
+        <br />
+        <label type="number" for="tipoPersona"><b> Tipo de Perito:</b></label>
+        <legend >{{item.tipoPersona}}</legend>
+        <br>
+        <input placeholder="Tipo de perito" class="input-style" type="text"
+        id="tipoPerito"
+        name="tipoPerito "
+        [(ngModel)]="item.tipoPerito">
+
+        <br />
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <input type="submit" value="HABLITAR PERITO" />
+  
+          <a (click)="back()" type="button" class="back-button">
+            <span class="arrow"></span>
+            Volver
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

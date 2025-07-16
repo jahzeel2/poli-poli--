@@ -1,0 +1,27 @@
+<!-- condiciones-climaticas.component.html -->
+<form [formGroup]="condicionesForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Condiciones Climáticas</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-grid-list cols="3" rowHeight="80px">
+        <!-- Implementar todas las filas según especificación -->
+        <mat-grid-tile *ngFor="let item of ['dia', 'noche', 'iluminacionArtificial']">
+          <mat-checkbox [formControlName]="item">{{item | titlecase}}</mat-checkbox>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-form-field *ngIf="condicionesForm.get('otros')?.value">
+        <input matInput placeholder="Especificar otros" formControlName="otros">
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+
+<button mat-button (click)="goBack()">Atrás</button> 
+      <button mat-raised-button color="primary" type="submit">Siguiente</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -1,0 +1,221 @@
+// styles.scss
+
+// @import '@angular/material/theming';
+
+// .mat-card {
+//   margin: 20px;
+//   padding: 30px;
+// }
+
+// .form-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+//   gap: 20px;
+// }
+
+// .section-title {
+//   color: mat-color($mat-indigo, 500);
+//   margin: 25px 0;
+//   border-bottom: 2px solid mat-color($mat-grey, 300);
+//   padding-bottom: 10px;
+// }
+
+// .button-group {
+//   display: flex;
+//   justify-content: flex-end;
+//   gap: 15px;
+//   margin-top: 30px;
+// }
+
+// Responsividad
+//@media (max-width: 768px) {
+  //.mat-grid-list {
+    //grid-template-columns: 1fr !important;
+  //}
+//}
+/* Import Angular Material theme FIRST */
+@import '@angular/material/prebuilt-themes/indigo-pink.css'; /* Or your chosen theme */
+
+/* Import Leaflet CSS */
+@import 'leaflet/dist/leaflet.css';
+
+/* Import Bootstrap Icons */
+@import 'bootstrap-icons/font/bootstrap-icons.css'; /* Make sure bootstrap-icons is installed */
+
+/* --- Define Custom Color Variables (from original CSS) --- */
+:root {
+  --primary-color: #0d6efd; /* Original Bootstrap Blue */
+  --secondary-color: #6c757d;
+  --success-color: #198754; /* Original Bootstrap Green */
+  --warning-color: #ffc107; /* Original Bootstrap Yellow */
+  --danger-color: #dc3545; /* Original Bootstrap Red */
+  --info-color: #0dcaf0;   /* Original Bootstrap Cyan/Info */
+  --light-color: #f8f9fa;
+  --dark-color: #212529;   /* Original Dark Color for Sidebar */
+  --text-dark: #212529;
+  --text-light: #f8f9fa;
+  --text-white: #ffffff;
+  --text-muted: #6c757d;
+}
+
+/* --- Base Body Styles --- */
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #f4f6f9; /* Light grey background for content area */
+}
+
+/* --- Helper Classes for Backgrounds (like Bootstrap) --- */
+.bg-primary { background-color: var(--primary-color) !important; color: var(--text-white) !important; }
+.bg-success { background-color: var(--success-color) !important; color: var(--text-white) !important; }
+.bg-warning { background-color: var(--warning-color) !important; color: var(--text-dark) !important; } /* Text dark on yellow */
+.bg-danger { background-color: var(--danger-color) !important; color: var(--text-white) !important; }
+.bg-info { background-color: var(--info-color) !important; color: var(--text-dark) !important; }
+.bg-light { background-color: var(--light-color) !important; color: var(--text-dark) !important; }
+.bg-dark { background-color: var(--dark-color) !important; color: var(--text-light) !important; }
+
+.text-white { color: var(--text-white) !important; }
+.text-dark { color: var(--text-dark) !important; }
+.text-light { color: var(--text-light) !important; }
+.text-muted { color: var(--text-muted) !important; }
+
+/* --- Angular Material Overrides (General) --- */
+.mat-mdc-card {
+  border-radius: 8px !important; /* Rounded corners like original */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important; /* Softer shadow */
+  border: none !important; /* Remove Material border */
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: var(--primary-color) !important;
+}
+.mat-mdc-raised-button.mat-warn {
+  background-color: var(--danger-color) !important; /* Use danger for warn */
+}
+.mat-mdc-raised-button.mat-accent {
+    background-color: var(--warning-color) !important; /* Use warning for accent */
+    color: var(--text-dark) !important;
+}
+
+/* Style for loading spinner */
+.loading-spinner-overlay {
+  position: fixed; /* Or absolute if relative to a container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading-spinner-overlay mat-spinner circle {
+    stroke: var(--primary-color) !important; /* Color for spinner */
+}
+
+
+/* Signature Pad specific style */
+.signature-pad-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 200px;
+    margin: auto;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+canvas.signature-pad {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
+/* Leaflet map height */
+.leaflet-map {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+}
+.leaflet-map-large {
+    height: 600px;
+}
+
+/* Footer */
+.app-footer {
+    flex-shrink: 0;
+    padding: 15px 0;
+    background-color: #343a40; /* Darker grey */
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Ensure content pushes footer down */
+mat-sidenav-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+mat-sidenav-content {
+    flex: 1 0 auto;
+    /* Padding moved to content-area inside layout */
+}
+
+/* Fix for mat-form-field appearance */
+.mat-mdc-form-field-subscript-wrapper {
+    height: auto !important;
+}
+
+/* General Card Header Style (like original) */
+.card-header-custom {
+    background-color: #f8f9fa !important; /* Light background */
+    padding: 0.75rem 1.25rem !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0 !important; /* Rounded top corners */
+}
+.card-header-custom .mat-mdc-card-title {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0 !important;
+    display: flex;
+    align-items: center;
+}
+.card-header-custom .mat-mdc-card-title mat-icon {
+    margin-right: 8px;
+}
+
+/* Table header */
+.mat-mdc-header-cell {
+    font-weight: 600 !important;
+    background-color: #f8f9fa !important;
+    color: var(--text-dark) !important;
+}
+
+/* Table hover effect */
+.mat-mdc-row:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Responsive table container */
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+  border-radius: 0 0 8px 8px; /* Rounded bottom corners if card has no padding */
+  overflow: hidden; /* Clip content */
+}
+.mat-mdc-table {
+    min-width: 600px; /* Prevent excessive squishing on small screens */
+}
+

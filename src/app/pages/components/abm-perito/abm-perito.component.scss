@@ -1,0 +1,121 @@
+input[type="submit"] {
+  background-color: dodgerblue;
+  color: white;
+    cursor: pointer;
+}
+
+  input[type="submit"]:hover {
+    background-color: deepskyblue;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+input {
+  padding: 10px;
+  font-size: 18px;
+  border: 2px solid #ff7f50;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 80%;
+  max-width: 400px;
+}
+
+input:focus {
+  border-color: #ff6347;
+  box-shadow: 0 0 5px #ff6347;
+}
+
+@media (max-width: 768px) {
+  input {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #ff6347;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  max-width: 100%;
+}
+
+.back-button:hover {
+  background-color: #ff7f50;
+}
+
+.arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+  transform: rotate(-45deg);
+  margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+  .back-button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .arrow {
+    width: 8px;
+    height: 8px;
+  margin-right: 4px;
+  }
+}
+.container {
+    display: flex;
+    flex-direction:column;
+    align-items: flex-start;
+    width: 300px;
+  }
+  
+  .input-group {
+    margin-bottom: 10px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    //border: 1px solid #ccc;
+  }
+  
+  .d-grid {
+    margin-top: 10px;
+  }
+  
+  .input-style {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #555;
+    outline: none;
+  }
+  
+  .input-style:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  

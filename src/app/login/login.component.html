@@ -1,0 +1,132 @@
+<!-- <div class="login-container">
+  <div class="login-card">
+
+    <div class="login-image">
+      <img src="./../../../assets/logo.png" alt="Logo" />
+    </div>
+
+    <h2>Departamento Policia Cientifica</h2>
+    <form [formGroup]="loginForm" >
+      <mat-form-field appearance="fill">
+        <mat-label>Usuario</mat-label>
+        <input
+         matInput  [(ngModel)]="userName"
+        type="text"
+        name="userName"
+        id="userName"
+        placeholder="Usuario">
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+          El usuario es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input
+        matInput
+        [(ngModel)]="password"
+        type="password"
+        name="password"
+        id="pwd"
+        placeholder="Contraseña">
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          La contraseña es obligatoria.
+        </mat-error>
+      </mat-form-field>
+
+      <button (click)="login()" mat-raised-button color="primary" type="submit" >
+        Iniciar Sesión
+      </button>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div> -->
+<!-- <div class="login-container">
+  <mat-card class="login-card mat-elevation-z8">
+    <mat-card-header class="justify-content-center">
+      <mat-card-title class="login-title">
+        <mat-icon class="title-icon">shield</mat-icon>
+        SiniestrosPol - Ingreso
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <p class="text-muted text-center">Ingrese su identificador para acceder.</p>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Usuario / DNI</mat-label>
+          <input matInput formControlName="identifier" required placeholder="Ingrese su identificador">
+          <mat-icon matSuffix>person_outline</mat-icon>
+          <mat-error *ngIf="loginForm.get('identifier')?.hasError('required')">
+            Identificador requerido.
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="w-100 login-button" [disabled]="isLoading || loginForm.invalid">
+          <span *ngIf="!isLoading">Ingresar</span>
+          <span *ngIf="isLoading" class="d-flex align-items-center justify-content-center">
+            <mat-progress-spinner diameter="20" mode="indeterminate" class="me-2"></mat-progress-spinner>
+            Ingresando...
+          </span>
+        </button>
+
+      </form>
+    </mat-card-content>
+    </mat-card>
+</div> -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+<div class="wrapper">
+  <div class="logo">
+    <img src="./../../../assets/logo.png" alt="precione aqui?" />
+  </div>
+  <div class="text-center mt-4 name">Sistema  Gestión de Expedientes y Pericias</div>
+  <form class="p-3 mt-3">
+    <div class="form-field d-flex align-items-center">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <input
+        id="color"
+        [(ngModel)]="userName"
+        type="text"
+        name="userName"
+        id="userName"
+        placeholder="Usuario"
+      />
+    </div>
+    <br>
+    <div class="form-field d-flex align-items-center">
+      <i class="fa fa-key" aria-hidden="true"></i>
+      <input
+        id="color"
+        [(ngModel)]="password"
+        type="password"
+        name="password"
+        id="pwd"
+        placeholder="Contraseña"
+      />
+    </div>
+    <button (click)="login()" class="btn mt-3">
+      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      Iniciar sesión
+    </button>
+  </form>
+  <div class="text-center fs-6">
+    <a href="https://policiadigital.chaco.gob.ar"
+      ><b>
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+        &nbsp;
+        <u> Ir a Policía Digital Chaco</u></b
+      ></a
+    >
+  </div>
+</div>
+
+
+

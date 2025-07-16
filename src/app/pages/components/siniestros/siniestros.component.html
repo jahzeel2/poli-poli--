@@ -1,0 +1,69 @@
+<form [formGroup]="siniestroForm" (ngSubmit)="onSubmit()">
+  <mat-card class="siniestro-card">
+    <mat-card-header>
+      <mat-card-title class="title">Registro de Siniestro Vial</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="form-grid">
+        <!-- Fecha -->
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha del hecho</mat-label>
+          <input matInput formControlName="fecha" type="date">
+
+        </mat-form-field>
+
+        <!-- Hora -->
+        <mat-form-field appearance="outline">
+          <mat-label>Hora aproximada</mat-label>
+          <input matInput formControlName="hora" type="time">
+
+        </mat-form-field>
+
+        <!-- N° Intervención -->
+        <mat-form-field appearance="outline">
+          <mat-label>N° de Intervención</mat-label>
+          <input matInput formControlName="numeroIntervencion" type="number">
+
+        </mat-form-field>
+
+        <!-- Lugar -->
+        <mat-form-field appearance="outline">
+          <mat-label>Lugar exacto</mat-label>
+          <input matInput formControlName="lugar">
+          <mat-error *ngIf="f['lugar'].errors?.['required']">Ubicación requerida</mat-error>
+        </mat-form-field>
+
+        <!-- Coordenadas -->
+        <mat-form-field appearance="outline">
+          <mat-label>Coordenadas (opcional)</mat-label>
+          <input matInput formControlName="coordenadas"
+                placeholder="Ej: -34.603722, -58.381592">
+          <mat-hint>Formato: Latitud, Longitud</mat-hint>
+          <mat-error>Formato inválido</mat-error>
+        </mat-form-field>
+
+        <!-- Localidad -->
+        <mat-form-field appearance="outline">
+          <mat-label>Localidad</mat-label>
+          <input matInput formControlName="localidad">
+          <mat-error *ngIf="f['localidad'].errors?.['required']">Campo obligatorio</mat-error>
+        </mat-form-field>
+
+        <!-- Escribiente -->
+        <mat-form-field appearance="outline">
+          <mat-label>Escribiente a cargo</mat-label>
+          <input matInput formControlName="escribiente">
+          <mat-error *ngIf="f['escribiente'].errors?.['required']">Nombre requerido</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" type="submit" [disabled]="siniestroForm.invalid">
+        Continuar
+
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -1,0 +1,62 @@
+<br />
+<div class="alert alert-primary" role="alert">
+  <h1><u> LISTADO DE PERSONAL INTERVINIENTE</u></h1>
+</div>
+<br />
+<div class="container">
+  <div class="row">
+  <!-- <app-fli-peritos-crim></app-fli-peritos-crim> -->
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <!-- <th scope="col">Id</th> -->
+          <th scope="col">NOMBRE</th>
+          <th scope="col">APELLIDO</th>
+          <th scope="col">DNI</th>
+          <th scope="col">Tipo Perito</th>
+          <!-- <th scope="col">ACTIVO</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <!-- <th scope="row">{{ item.id }}</th> -->
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.apellido }}</td>
+          <td>{{ item.dni }}</td>
+          <td>{{item.tipoPerito}}</td>
+          <!-- <td>{{ item.activo == true ? "esta activo" : "NO esta activo" }}</td> -->
+          <td>
+            <button
+              class="add-button"
+              type="button"
+              (click)="volver_al_abm(item.id)"
+            >
+              MODIFICAR
+            </button>
+          </td>
+          <td>
+            <button
+              class="eliminar-button"
+              type="button"
+              (click)="eliminardato(item.id)"
+            >
+              Baja de Personal
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br />
+
+<div class="containerr">
+  <button class="back-button" (click)="volver_principal()" href="/">
+    Volver a la pagina principal
+  </button>
+  <button class="add-button" (click)="volver_al_abm(0)" href="/">
+    Agregar P. Interviniente
+  </button>
+</div>

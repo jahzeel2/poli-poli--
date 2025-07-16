@@ -1,0 +1,72 @@
+<div class="container">
+    <br />
+    <div class="row alert alert-info">
+      <h3><b>Habilitar Usuarios para uso del Sistema</b></h3>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <app-fil-usuario (filter)="doFound($event)"></app-fil-usuario> -->
+      </div>
+    </div>
+    <hr />
+    <form *ngIf="proceso" (ngSubmit)="pregunta()">
+      <div class="row">
+        <div class="col-md-12 alert alert-info text-center">
+          <h3>
+            <u
+              ><em>{{ valor(dtCriminalistica.tipoPersona) }}</em></u
+            >
+          </h3>
+          <h4>
+            <b>{{ dtCriminalistica.apellido }}, {{ dtCriminalistica.nombre }}</b>
+            Dni n°: <b>{{ dtCriminalistica.norDni }}</b>
+          </h4>
+          <br />
+          <ng-container
+            *ngIf="dtCriminalistica.rolNombre != 'MANAGER'; then thenTemplate; else elseTemplate"
+          ></ng-container>
+          <ng-template #thenTemplate>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <app-combo-rol
+                  [dibujar]="item"
+                  (emitir)="seleccionRol($event)"
+                ></app-combo-rol>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </ng-template>
+          <ng-template #elseTemplate>
+            <h4>
+              Rol del Personal: <b>{{ dtCriminalistica.rolNombre }}</b>
+            </h4>
+          </ng-template>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+
+        <div *ngIf="dtCriminalistica.rolNombre != 'MANAGER'" class="col-md-12">
+          <button type="submit" class="btn btn-info d-grid gap-2 col-6 mx-auto">
+            <i class="fa fa-thumbs-up" aria-hidden="true"
+              >&nbsp;Guardar Usuario</i
+            >
+          </button>
+        </div>
+      </div>
+      &nbsp;
+    </form>
+    <div class="row">
+      <div class="col-md-12">
+        <button
+          (click)="back()"
+          type="submit"
+          class="btn btn-danger d-grid gap-2 col-6 mx-auto"
+        >
+          <i class="fa fa-thumbs-down" aria-hidden="true">&nbsp; Cancelar</i>
+        </button>
+      </div>
+    </div>
+  </div>

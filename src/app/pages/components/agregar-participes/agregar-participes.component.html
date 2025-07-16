@@ -1,0 +1,116 @@
+<mat-card class="participe-card">
+  <mat-card-header>
+    <mat-card-title>Registro de Participe</mat-card-title>
+    <mat-card-subtitle>Vehículo {{ participantes.length + 1 }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="participeForm">
+      <div class="form-grid">
+        <!-- Columna 1 -->
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de vehículo</mat-label>
+          <mat-select formControlName="tipo" required>
+            <mat-option value="automovil">Automóvil</mat-option>
+            <mat-option value="camioneta">Camioneta</mat-option>
+            <mat-option value="motocicleta">Motocicleta</mat-option>
+            <mat-option value="camion">Camión</mat-option>
+            <mat-option value="otro">Otro</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="marca" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="modelo" required>
+        </mat-form-field>
+
+        <!-- Columna 2 -->
+        <mat-form-field appearance="outline">
+          <mat-label>Dominio</mat-label>
+          <input matInput formControlName="dominio" placeholder="Ej: AB123CD" required>
+          <mat-error *ngIf="participeForm.get('dominio')?.errors?.['pattern']">
+            Formato inválido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Número de motor</mat-label>
+          <input matInput formControlName="motor" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Color</mat-label>
+          <input matInput formControlName="color" required>
+        </mat-form-field>
+      </div>
+
+      <!-- Sección de condiciones -->
+      <div class="conditions-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad de ocupantes</mat-label>
+          <input matInput type="number" formControlName="ocupantes" min="1" required>
+        </mat-form-field>
+
+        <div class="checkboxes">
+          <mat-checkbox formControlName="acoplado">Acoplado</mat-checkbox>
+          <mat-checkbox formControlName="luces">Luces funcionando</mat-checkbox>
+          <mat-checkbox formControlName="espejos">Espejos presentes</mat-checkbox>
+          <mat-checkbox formControlName="frenos">Frenos operativos</mat-checkbox>
+          <mat-checkbox formControlName="casco">Casco puesto</mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Circulaba por</mat-label>
+          <input matInput formControlName="circulabaPor" required>
+        </mat-form-field>
+
+        <div class="direction-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Desde</mat-label>
+            <input matInput formControlName="desde" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hacia</mat-label>
+            <input matInput formControlName="hacia" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Zona de impacto -->
+      <div class="damage-section">
+        <h3 class="section-title">Zona de Impacto</h3>
+        <mat-form-field appearance="outline" class="full-width">
+          <textarea matInput
+                   formControlName="danos"
+                   placeholder="Describa los daños observados..."
+                   rows="4"
+                   required></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-raised-button
+            color="primary"
+            (click)="guardarTemporalmente()"
+            [disabled]="!participeForm.valid">
+      <mat-icon>save</mat-icon>
+      Guardar temporalmente
+    </button>
+
+    <button mat-raised-button
+            color="accent"
+            (click)="agregarOtro()"
+            [disabled]="!participeForm.valid">
+      <mat-icon>add</mat-icon>
+      Agregar otro participe
+    </button>
+  </mat-card-actions>
+</mat-card>

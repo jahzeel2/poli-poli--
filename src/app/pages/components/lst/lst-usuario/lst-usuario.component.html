@@ -1,0 +1,163 @@
+<br>
+<div class="overlay" *ngIf="load">
+
+  </div>
+
+  <div *ngIf="!load">
+    <div class="container-xxl">
+      <div class="row alert alert-info">
+        <div class="col-md-12">
+          <b id="titulo"
+            ><em><u>Listado de Usuarios</u></em>
+          </b>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- <app-fil-usuarios-criminalistica (emmit)="doFound($event)"></app-fil-usuarios-criminalistica> -->
+        </div>
+
+      </div>
+      <hr>
+      <div>
+        <table class="table">
+          <thead class="bg-dark text-center">
+            <tr style="color: white">
+              <th>Acción</th>
+              <th>Apellido</th>
+              <th>Nombre</th>
+              <th>DNI</th>
+              <th>Permiso</th>
+              <th>Tipo Usuario</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let item of items">
+              <td>
+                <ng-container
+                  *ngIf="
+                    item.tipoPersona == false &&
+                      item.nombre != nombreUsu;
+                    then thenTemplate;
+                    else elseTemplate
+                  "
+                ></ng-container>
+                <ng-template #thenTemplate>
+                  <div class="row">
+                    <div class="col">
+                      <!-- (click)="linkear(item.civil)" -->
+                      <!-- <button
+
+                        type="button"
+                        title="Modificar"
+                        placement="top"
+                        show-delay="10"
+                        class="btn btn-outline-info btn-sm"
+                      >
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      </button>
+                      &nbsp; -->
+                      <button
+                        (click)="preDelete(item)"
+                        type="button"
+                        title="Inhabilitar Usuario"
+                        placement="top"
+                        show-delay="10"
+                        class="btn btn-outline-danger btn-sm"
+                      >
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template #elseTemplate>
+                  <button
+                    *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'DEVELOPER'"
+                    (click)="preDelete(item)"
+                    type="button"
+                    title="Inhabilitar Usuario"
+                    placement="top"
+                    show-delay="10"
+                    class="btn btn-outline-danger btn-sm"
+                  >
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </ng-template>
+              </td>
+              <td>{{ item?.apellido }}</td>
+              <td>{{ item?.nombre }}</td>
+              <td>{{ item?.norDni }}</td>
+              <td class="text-primary">
+                <!-- <b>{{ item?.rolNavigation?.nombre  |uppercase}}</b> -->
+              </td>
+              <td class="text-success">
+                <b>{{tipoUsuario(item?.tipoPersona) }}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        *ngIf="items.length === 0"
+        class="alert alert-primary alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>No hay datos</strong>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-12" id="derecha">
+        <button (click)="habilitar()" class="btn btn-info">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Habilitar nuevo usuario
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--modal-->
+
+  <!-- Button trigger modal -->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Panel de habilitación de Usuario
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <legend>
+                Habilitar personal para uso del Sistema ¿Estás Seguro?
+              </legend>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-primary">Habilitar</button>
+        </div>
+      </div>
+    </div>
+  </div>

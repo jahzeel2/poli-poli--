@@ -1,0 +1,67 @@
+#titulo {
+    font-size: 1.5rem;
+    color: black;
+  }
+  #titulo2 {
+    font-size: 2rem;
+    color: blue;
+  }
+  #derecha {
+    position: relative;
+    bottom: 0;
+    right: 0px;
+  }
+  #izquierda {
+    position: relative;
+    bottom: 0;
+    left: 385px;
+  }
+  //scroll de tabla
+  .table-responsive {
+    height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  
+  //colores para el estado
+  #tabla {
+    padding: 0px;
+  }
+  
+  //colores de th
+  .t-light {
+    //background-color: #E8FFFF !important;
+    color: blue !important;
+  }
+  
+  .t-success {
+    //background-color: lightgreen !important;
+    color: green !important;
+  }
+  .t-warning {
+    //background-color: lightyellow !important;
+    color: rgb(143, 143, 38) !important;
+  }
+  
+  .t-danger {
+    //background-color: red !important;
+    // color: #E8FFFF;
+    color: red !important;
+  }
+  .t-primary {
+    //  background-color: skyblue !important;
+    color: skyblue !important;
+  }
+  .t-info {
+    //background-color: lightsalmon !important;
+    color: lightsalmon !important;
+  }
+  .t-violeta {
+    //background-color: violet !important;
+    color: rgb(206, 14, 206) !important;
+  }
+  .t-default {
+    //background-color: #FEF1E6 !important;
+    color: #4e4e4e !important;
+  }
+  

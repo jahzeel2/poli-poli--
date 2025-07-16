@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #sidenav
+               [mode]="isMobile ? 'over' : 'side'"
+               [opened]="!isMobile"
+               [fixedInViewport]="true"
+               [fixedTopGap]="64"
+               class="app-sidenav"
+               [class.sidebar-collapsed]="isSidebarCollapsed && !isMobile">
+    <app-sidebar [isCollapsed]="isSidebarCollapsed && !isMobile"></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-navbar (toggleSidebarEvent)="toggleSidebar()"></app-navbar>
+
+    <div class="alert backend-status-alert"
+         [ngClass]="{
+           'alert-info': backendStatus === 'checking',
+           'alert-success': backendStatus === 'ok',
+           'alert-danger': backendStatus === 'error'
+         }"
+         role="alert">
+      <i class="bi" [ngClass]="{
+        'bi-arrow-repeat': backendStatus === 'checking',
+        'bi-database-check': backendStatus === 'ok',
+        'bi-database-dash': backendStatus === 'error'
+      }"></i>
+      {{ backendMessage }}
+      <button *ngIf="backendStatus === 'error'" mat-icon-button (click)="checkBackend()" matTooltip="Reintentar conexión">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+
+    <main class="content-area">
+       <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </main>
+
+     
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

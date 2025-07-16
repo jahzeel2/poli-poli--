@@ -1,0 +1,32 @@
+<form [formGroup]="viaForm" (ngSubmit)="onFinalSubmit()">
+  <mat-card>
+    <!-- Sección Zona -->
+    <div formGroupName="zona"> <!-- Agregar este div -->
+      <h2 class="section-title">Zona</h2>
+      <mat-grid-list cols="3" rowHeight="80px">
+        <mat-grid-tile *ngFor="let item of ['centrica', 'poblada', 'despoblada']">
+          <mat-checkbox [formControlName]="item"> <!-- Quitar [formGroup] -->
+            {{item | titlecase}}
+          </mat-checkbox>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+    <!-- Sección Suelo -->
+    <div formGroupName="suelo"> <!-- Agregar este div -->
+      <h2 class="section-title">Suelo</h2>
+      <mat-grid-list cols="3" rowHeight="80px">
+        <mat-grid-tile *ngFor="let item of ['asfalto', 'hormigon', 'tierra']">
+          <mat-checkbox [formControlName]="item"> <!-- Quitar [formGroup] -->
+            {{item | titlecase}}
+          </mat-checkbox>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+    <mat-card-actions>
+      <button mat-button (click)="previousStep()">Atrás</button>
+      <button mat-raised-button color="primary" type="submit">Guardar Siniestro</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

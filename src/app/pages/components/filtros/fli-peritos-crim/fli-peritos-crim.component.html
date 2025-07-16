@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-md-1">
+      <select
+        (change)="filter()"
+        class="form-control border border-success"
+        name="limit"
+        id="limit"
+        [(ngModel)]="limit"
+      >
+        <option *ngFor="let c of limits" [ngValue]="c">{{ c }}</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li [class]="paginaActual <= 1 ? 'page-item disabled' : 'page-item'">
+            <a
+              (click)="setPage(paginaActual, 'anterior')"
+              class="page-link"
+              href="javascript:void(0);"
+              aria-label="Previous"
+            >
+              <span  aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">
+                  Pagina {{ paginaActual }} de {{totalPaginas}} - total de registros {{totalRegistros}}
+                </a>
+              </li>
+          <li
+            [class]="
+              paginaActual === totalPaginas
+                ? 'page-item disabled'
+                : 'page-item'
+            "
+          >
+            <a 
+              (click)="setPage(paginaActual, 'siguiente')"
+              class="page-link"
+              href="javascript:void(0);"
+              aria-label="Next"
+            >
+              <span  aria-hidden="true">&raquo;</span>
+              <span  class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col-md-6">
+      <div class="container">
+        <div class="col-md-12">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control border border-primary"
+              name="criterio"
+              [(ngModel)]="busqueda"
+              (ngModelChange)="filter()"
+              placeholder="Criterio de búsqueda"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <!-- <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2"
+                (click)="filter()"
+              >
+                Buscar
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

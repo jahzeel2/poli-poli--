@@ -1,0 +1,56 @@
+.incident-list-container {
+  padding: 10px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Ensure table takes full width within responsive container */
+.mat-mdc-table {
+    width: 100%;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Loading shade */
+.loading-shade {
+  position: absolute; /* Position relative to the card */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 1; /* Ensure it's above the table */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom Card Header */
+.card-header-custom {
+    background-color: #f8f9fa;
+    padding: 10px 16px;
+    border-bottom: 1px solid #dee2e6;
+}
+.card-header-custom .mat-mdc-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Adjust cell padding for density */
+.mat-mdc-table .mat-mdc-cell {
+    padding: 8px; /* Adjust as needed */
+}
+.mat-mdc-table .mat-mdc-header-cell {
+     padding: 8px;
+}
+
+/* Ensure actions don't wrap excessively */
+.mat-mdc-table .mat-mdc-cell:last-child {
+    white-space: nowrap;
+}
