@@ -14,7 +14,7 @@ static URLCivil: 'https://policiadigital.chaco.gob.ar:9090/api_civil/';
 static URLRealJava:'http://192.168.0.34:3001/';
 static URLOci: 'https://policiadigital.chaco.gob.ar:9090/api_oci/';
 
-    static URL='http://127.0.0.1:5000';
+    static URL='http://127.0.0.1:5000/';
     // static URLRegBus='http://10.125.30.74/api_registroUsuario/';
     // static URLCivil:'http://10.125.30.74/api_civil/';
     // static URLRealJava:'http://10.125.31.150:3001/';

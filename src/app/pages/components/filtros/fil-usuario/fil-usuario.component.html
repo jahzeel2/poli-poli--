@@ -1,34 +1,18 @@
-<div *ngIf="cargando">
-    <app-wg-cargandoo></app-wg-cargandoo>
-  </div>
-  <ng-container *ngIf="!cargando; then mostrar"> </ng-container>
+<app-wg-cargando *ngIf="isLoading"></app-wg-cargando>
 
-  <ng-template #mostrar>
-    <div class="row">
-      <div class="col-md-3">
-        <label><b>Ingrese nro DNI del Personal:</b></label>
-      </div>
-      <div class="col-md-6">
-        <form ngNativeValidate #f="ngForm">
-          <div id="custom-search-input">
-            <div class="input-group col-md-12 mb-2">
-              <input
-                name="filtro"
-                [(ngModel)]="search"
-                type="text"
-                class="search-query form-control"
-                placeholder="Buscar"
-              />
-              <span class="input-group-btn">
-                <button class="btn btn-danger" (click)="list()" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </span>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-3">
-      </div>
+<div class="row">
+    <div class="col-md-3">
+        <label><b>Criterio de búsqueda:</b></label>
     </div>
-  </ng-template>
+    <div class="col-md-6">
+        <form (ngSubmit)="doFound()">
+            <div class="input-group mb-2">
+                <input name="search" [(ngModel)]="search" type="text" class="form-control" placeholder="Buscar por DNI...">
+                <button class="btn btn-primary" type="submit" [disabled]="isLoading">
+                    <i class="fa fa-search" aria-hidden="true"></i> Buscar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+    

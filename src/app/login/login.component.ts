@@ -84,7 +84,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../app/services/auth.service';
+
 import { UsuariosCriminalistica } from 'src/app/models/usuarios-criminalistica';
 import { RegistroUsuarioService } from 'src/app/services/registro-usuario.service';
 import { UsuarioCriminalisticaService } from 'src/app/services/usuario-criminalistica.service';
@@ -185,16 +185,18 @@ export class LoginComponent implements OnInit {
     try {
       this.proccess = true;
       let data = await this.wsdlUsuarioCentral.getFindId(this.id).then();
-      console.log("login2",data);
+
       const res = JSON.parse(JSON.stringify(data));
+
+      console.log("alejandr",res);
       if (res.code == 200) {
 
-        this.item = res.dato;
+        this.item = res.data;
         if (!this.item.baja && this.item.activo) {
             this.datosPersonal = {
             apellido: this.item.apellido.toLowerCase(),
             nombre: this.item.nombre.toLowerCase(),
-            rol: this.item.rolNavigation?.nombre.toLowerCase(),
+            rol: this.item.rol,
             unidad: this.item.sistema,
           };
           //console.log(this.datosPersonal);
@@ -216,7 +218,7 @@ export class LoginComponent implements OnInit {
             'personal',
             Cifrado.cifrar(JSON.stringify(this.datosPersonal), 5)
           );
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/Dashboard']);
         } else {
           Swal.fire({
             icon: 'warning',

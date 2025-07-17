@@ -84,13 +84,13 @@
       </div>
   </div>
 </div> -->
-<div class="user-info" [class.collapsed]="isCollapsed">
-  <img [src]="userImageUrl" class="user-image" alt="Perfil">
+<!-- <div class="user-info" [class.collapsed]="isCollapsed">
+
   <div class="user-details" *ngIf="!isCollapsed && currentUser">
     <h6 class="user-name">{{ currentUser.apellido || '' }}, {{ currentUser.nombre || '' }}</h6>
-    <span class="user-role">{{ currentUser.rol?.nombre }}</span>
+     <span class="user-role">{{ currentUser.rol?.nombre }}</span> 
   </div>
-</div>
+</div> -->
 
 <mat-nav-list class="nav-list">
   <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link"
@@ -100,35 +100,35 @@
   </a>
 
   <a mat-list-item routerLink="/nuevo-siniestro" routerLinkActive="active-link"
-     *ngIf="authService.hasRole([ROLES.CARGADOR, ROLES.ADMIN, ROLES.MANAGER])"
+
      [matTooltip]="isCollapsed ? 'Nuevo Siniestro' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>add_circle_outline</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Nuevo Siniestro</span>
   </a>
 
   <a mat-list-item routerLink="/siniestros" routerLinkActive="active-link"
-     *ngIf="authService.hasRole([ROLES.ADMIN, ROLES.MANAGER, ROLES.VISTA])"
+     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'ROLES.VISTA, ROLES.ADMIN, ROLES.MANAGER'"
      [matTooltip]="isCollapsed ? 'Lista de Siniestros' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>list_alt</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Lista de Siniestros</span>
   </a>
 
    <a mat-list-item routerLink="/mapa" routerLinkActive="active-link"
-      *ngIf="authService.hasRole([ROLES.ADMIN, ROLES.MANAGER])"
+      *ngIf="item?.rolNavigation.nombre !== 'ROLES.ADMIN, ROLES.MANAGER'"
       [matTooltip]="isCollapsed ? 'Mapa de Incidentes' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>map</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Mapa de Incidentes</span>
   </a>
 
   <a mat-list-item routerLink="/usuarios" routerLinkActive="active-link"
-     *ngIf="authService.hasRole([ROLES.ADMIN, ROLES.MANAGER])"
+     *ngIf="item?.rolNavigation.nombre !== 'ROLES.ADMIN, ROLES.MANAGER'"
      [matTooltip]="isCollapsed ? 'Usuarios' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>people</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Usuarios</span>
   </a>
 
   <a mat-list-item (click)="openUploadEvidenceDialog()" routerLinkActive="active-link"
-     *ngIf="authService.hasRole([ROLES.FOTOGRAFO, ROLES.ADMIN, ROLES.MANAGER])"
+     *ngIf="item?.rolNavigation.nombre !== 'ROLES.FOTOGRAFO, ROLES.ADMIN, ROLES.MANAGER'"
      [matTooltip]="isCollapsed ? 'Subir Evidencia' : ''" matTooltipPosition="right"
      style="cursor: pointer;">
     <mat-icon matListItemIcon>cloud_upload</mat-icon>

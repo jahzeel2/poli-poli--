@@ -68,39 +68,6 @@ export class ApiService {
     );
   }
 
-  // --- Usuarios (Perfiles Locales) CRUD ---
-   getUsuarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.API_BASE_URL}/usuarios`).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-   getUsuarioById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.API_BASE_URL}/usuarios/${id}`).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  createUsuario(userData: any): Observable<any> {
-
-    return this.http.post<any>(`${this.API_BASE_URL}/usuarios`, userData).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  updateUsuario(id: number, userData: any): Observable<any> {
-
-    return this.http.put<any>(`${this.API_BASE_URL}/usuarios/${id}`, userData).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  deleteUsuario(id: number, adminUserId: number): Observable<any> {
-     let params = new HttpParams().set('usuarioBajaId', adminUserId.toString());
-    return this.http.delete<any>(`${this.API_BASE_URL}/usuarios/${id}`, { params }).pipe(
-      catchError(this.handleError)
-    );
-  }
 
 
 
