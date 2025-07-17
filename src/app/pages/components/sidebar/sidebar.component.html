@@ -1,43 +1,59 @@
 <div class="user-info" [class.collapsed]="isCollapsed">
-  <img [src]="userImageUrl" class="user-image" alt="Perfil">
-  <div class="user-details" *ngIf="!isCollapsed && currentUser">
-    <h6 class="user-name">{{ currentUser?.apellido || '' }}, {{ currentUser?.nombre || '' }}</h6>
-    <span class="user-role">{{ currentUser?.rol?.nombre || 'N/A' }}</span>
+  <div class="user-details" *ngIf="!isCollapsed && this.nombreUsu">
   </div>
 </div>
 
 <mat-nav-list class="nav-list">
-  <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" [matTooltip]="isCollapsed ? 'Dashboard' : ''" matTooltipPosition="right">
+  <!-- Dashboard (Todos) -->
+  <a mat-list-item routerLink="/Dashboard" routerLinkActive="active-link" (click)="menuItemClicked.emit()"
+    [matTooltip]="isCollapsed ? 'Dashboard' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>speed</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Dashboard</span>
   </a>
 
-  <a mat-list-item routerLink="/nuevo-siniestro" routerLinkActive="active-link"
-     *ngIf="authService.hasRole([ROLES.CARGADOR, ROLES.ADMIN, ROLES.MANAGER])"
+  <!-- Nuevo Siniestro (Cargador, Admin, Manager) -->
+  <a mat-list-item routerLink="/pages/nuevo-siniestro" routerLinkActive="active-link"
+     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER, ADMIN' && item?.rolNavigation?.nombre !== 'CARGADOR'"
+     (click)="menuItemClicked.emit()"
      [matTooltip]="isCollapsed ? 'Nuevo Siniestro' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>add_circle_outline</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Nuevo Siniestro</span>
   </a>
 
-  <a mat-list-item routerLink="/siniestros" routerLinkActive="active-link"
-     *ngIf="authService.hasRole([ROLES.ADMIN, ROLES.MANAGER, ROLES.VISTA])"
-     [matTooltip]="isCollapsed ? 'Lista de Siniestros' : ''" matTooltipPosition="right">
+  <!-- Lista de Siniestros (Admin, Manager, Vista) -->
+  <a mat-list-item routerLink="/pages/siniestros" routerLinkActive="active-link"
+     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER, ADMIN' && item?.rolNavigation?.nombre !== 'VISTA'"
+    (click)="menuItemClicked.emit()"
+    [matTooltip]="isCollapsed ? 'Lista de Siniestros' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>list_alt</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Lista de Siniestros</span>
   </a>
 
-   <a mat-list-item routerLink="/mapa" routerLinkActive="active-link"
-      *ngIf="authService.hasRole([ROLES.ADMIN, ROLES.MANAGER])"
+  <!-- Mapa (Admin, Manager) -->
+  <a mat-list-item routerLink="/pages/mapa" routerLinkActive="active-link"
+      *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER,ADMIN'"
+      (click)="menuItemClicked.emit()"
       [matTooltip]="isCollapsed ? 'Mapa de Incidentes' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>map</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Mapa de Incidentes</span>
   </a>
 
-  <a mat-list-item routerLink="/usuarios" routerLinkActive="active-link"
-     *ngIf="authService.hasRole([ROLES.ADMIN, ROLES.MANAGER])"
-     [matTooltip]="isCollapsed ? 'Usuarios' : ''" matTooltipPosition="right">
+  <!-- Usuarios (Admin, Manager) -->
+  <a mat-list-item routerLink="/pages/usuarios" routerLinkActive="active-link"
+     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER,ADMIN'"
+    (click)="menuItemClicked.emit()"
+    [matTooltip]="isCollapsed ? 'Usuarios' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>people</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Usuarios</span>
   </a>
 
-   </mat-nav-list>
+  <!-- Subir Evidencia (Fotografo, Admin, Manager) -->
+  <a mat-list-item (click)="openUploadEvidenceDialog()"
+     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER,ADMIN' && item?.rolNavigation?.nombre !== 'FOTOGRAFO'"
+    [matTooltip]="isCollapsed ? 'Subir Evidencia' : ''" matTooltipPosition="right"
+    class="menu-button">
+    <mat-icon matListItemIcon>cloud_upload</mat-icon>
+    <span class="menu-text" *ngIf="!isCollapsed">Subir Evidencia</span>
+  </a>
+
+</mat-nav-list>

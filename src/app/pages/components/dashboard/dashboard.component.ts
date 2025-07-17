@@ -27,8 +27,7 @@ import { RegistroUsuarioService } from 'src/app/services/registro-usuario.servic
 export class DashboardComponent implements OnInit, OnDestroy {
 @Input() isCollapsed = false;
 
-  
-  private userSubscription: Subscription | null = null;
+
 @ViewChild('close')
   cerrar!: ElementRef;
 
@@ -70,7 +69,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('recentSort') sort!: MatSort;
 
   constructor(
-     private wsdl: UsuarioCriminalisticaService,
+    private wsdl: UsuarioCriminalisticaService,
     private wsdlRegistro:RegistroUsuarioService,
     private apiService: ApiService,
     private router: Router,
@@ -97,7 +96,7 @@ this.rol = JSON.parse(
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    
   }
 
   loadInitialData(): void {

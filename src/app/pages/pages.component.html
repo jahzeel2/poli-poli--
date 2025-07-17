@@ -1,19 +1,43 @@
-<div class="container1">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2">
-        <!-- <app-sidebar></app-sidebar> -->
-      </div>
-      <div class="col-md-10">
-        <div class="container">
-          <div class="row-md">
-          <app-layout></app-layout>
-          </div>
-          <div class="row-md">
-            <!-- <router-outlet></router-outlet> -->
-          </div>
+<mat-sidenav-container class="sidenav-container">
+
+  <!-- Sidebar (Sidenav) -->
+  <mat-sidenav #sidenav
+              [mode]="isMobile ? 'over' : 'side'"
+              [opened]="!isMobile"
+              [fixedInViewport]="true"
+              [fixedTopGap]="64"
+              class="app-sidenav"
+              [class.sidebar-collapsed]="isSidebarCollapsed && !isMobile">
+    <!-- Pasamos el estado colapsado y el evento de clic al componente sidebar -->
+    <app-sidebar [isCollapsed]="isSidebarCollapsed && !isMobile" (menuItemClicked)="onSidenavItemClick()"></app-sidebar>
+  </mat-sidenav>
+
+  <!-- Contenido Principal -->
+  <mat-sidenav-content class="sidenav-content">
+    <!-- Navbar (emite el evento para hacer toggle) -->
+    <app-navbar (toggleSidebarEvent)="toggleSidebar()"></app-navbar>
+
+    <!-- Contenido de la página (donde se renderizan las rutas hijas) -->
+    <main class="content-area">
+       <!-- Alerta de Estado del Backend -->
+        <div class="alert backend-status-alert"
+             [ngClass]="{
+               'alert-info': backendStatus === 'checking',
+               'alert-success': backendStatus === 'ok',
+               'alert-danger': backendStatus === 'error'
+             }"
+             role="alert">
+          <mat-icon class="alert-icon">{{ backendStatus === 'ok' ? 'cloud_done' : (backendStatus === 'error' ? 'cloud_off' : 'sync') }}</mat-icon>
+          <span>{{ backendMessage }}</span>
+          <button *ngIf="backendStatus === 'error'" mat-icon-button (click)="checkBackend()" matTooltip="Reintentar conexión">
+            <mat-icon>refresh</mat-icon>
+          </button>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+      <!-- El Router Outlet renderizará Dashboard, IncidentForm, etc. -->
+      <router-outlet></router-outlet>
+    </main>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

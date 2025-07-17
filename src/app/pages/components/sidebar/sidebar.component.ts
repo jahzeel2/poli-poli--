@@ -1,6 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UsuariosCriminalistica } from 'src/app/models/usuarios-criminalistica';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService, UserProfile } from 'src/app/services/auth.service';
+import { RegistroUsuarioService } from 'src/app/services/registro-usuario.service';
+import { UsuarioCriminalisticaService } from 'src/app/services/usuario-criminalistica.service';
+import { Cifrado } from 'src/app/utils/cifrado';
+import { Utils } from 'src/app/utils/utils';
+import { UploadEvidenceDialogComponent } from '../upload-evidence-dialog/upload-evidence-dialog.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,29 +17,97 @@ import { AuthService, UserProfile } from 'src/app/services/auth.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
- @Input() isCollapsed = false;
+@Input() isCollapsed = false;
+@Output() menuItemClicked = new EventEmitter<void>(); // Notificar clic
 
-  currentUser: UserProfile | null = null;
-  private userSubscription: Subscription | null = null;
+@ViewChild('close')
+  cerrar!: ElementRef;
 
-  // Definir roles para usar en el template
-  ROLES = { MANAGER: 'Manager', ADMIN: 'Administrador', CARGADOR: 'Cargador', FOTOGRAFO: 'Fotografo', VISTA: 'Vista' };
+ exportar: boolean = false;
+  items: UsuariosCriminalistica[];
+  item: UsuariosCriminalistica;
 
-  constructor(public authService: AuthService) { } // Hacer público para usar en template o inyectar directamente
 
-  ngOnInit(): void {
-    this.userSubscription = this.authService.currentUser$.subscribe(user => {
-      this.currentUser = user;
-    });
-  }
 
-  ngOnDestroy(): void {
-      this.userSubscription?.unsubscribe();
-  }
+  crit: any;
+  procesando!: Boolean;
+  public load!: boolean;
 
-  // Getters para simplificar template (opcional)
-  get userName(): string { return this.currentUser?.nombre || 'Usuario'; }
-  get userRole(): string { return this.currentUser?.rol?.nombre || 'N/A'; }
-  get userImageUrl(): string { return 'https://via.placeholder.com/80/007bff/ffffff?text=SP'; } // Placeholder
+  public nombre: string = 'Central Comunicaciones';
+  public url: string = 'https://10.125.31.214/central/';
+  public activoSistema: boolean = false;
 
+  TipoUsuario!: string;
+
+  entidad = 'lst-usuarios';
+  nombreUsu = '';
+  rol = '';
+
+  notifications: any[] = [];
+  isLoadingNotifications = false;
+private subscriptions = new Subscription();
+
+  constructor(
+  private wsdl: UsuarioCriminalisticaService,
+    private wsdlRegistro:RegistroUsuarioService,
+    private apiService: ApiService,
+    private router: Router,
+    public dialog: MatDialog
+){
+ this.load = false;
+    this.item = new UsuariosCriminalistica();
+    this.items = [];
 }
+
+ ngOnInit(): void {
+ this.rol = JSON.parse(
+      Cifrado.descifrar('' + Utils.getSession('personal'), 5)
+    ).rol,
+     //let persona = JSON.parse(Cifrado.descifrar(''+Utils.getSession('personal'),5))
+    this.nombreUsu =
+      JSON.parse(Cifrado.descifrar('' + Utils.getSession('personal'), 5))
+        .apellido +
+      ' ' +
+      JSON.parse(Cifrado.descifrar('' + Utils.getSession('personal'), 5))
+        .nombre
+
+    }
+
+loadRecentActivity(): void {
+      this.isLoadingNotifications = true;
+    const sub = this.apiService.getRecentActivity(10).subscribe({
+        next: (data) => {
+            this.notifications = Array.isArray(data) ? data : [];
+            this.isLoadingNotifications = false;
+            console.log("Actividad reciente cargada:", this.notifications);
+        },
+        error: (err) => {
+            this.isLoadingNotifications = false;
+            this.notifications = [];
+            console.error("Error loading recent activity:", err);
+
+        }
+      });
+      this.subscriptions.add(sub);
+  }
+
+
+
+
+
+openUploadEvidenceDialog(): void {
+        const dialogRef = this.dialog.open(UploadEvidenceDialogComponent, {
+          width: '600px',
+          disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result === true) {
+
+              this.loadRecentActivity();
+          }
+        });
+    }
+}
+
+
+

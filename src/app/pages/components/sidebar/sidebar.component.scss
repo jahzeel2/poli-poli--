@@ -1,53 +1,51 @@
-/* User Info Section */
+// User Info Section
 .user-info {
   background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  padding: 20px 15px; /* More padding */
-  margin: 15px;
+  padding: 20px 15px;
+  margin: 0 15px 20px 15px;
   text-align: center;
-  transition: padding 0.3s ease; /* Smooth transition */
+  transition: padding 0.3s ease-in-out, margin 0.3s ease-in-out;
+  border-radius: 8px;
 }
 
 .user-info.collapsed {
-    padding: 10px 0; /* Less padding when collapsed */
+    padding: 10px 0;
     margin: 15px 5px;
 }
 
-.user-info .user-image {
+.user-image {
   width: 80px;
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--primary-color); /* Use primary color border */
+  border: 3px solid var(--primary-color);
   margin-bottom: 10px;
-  transition: width 0.3s ease, height 0.3s ease;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 .user-info.collapsed .user-image {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     margin-bottom: 0;
 }
 
-.user-info .user-details {
-    transition: opacity 0.2s ease;
+.user-details {
+    transition: opacity 0.2s ease-in-out;
 }
 .user-info.collapsed .user-details {
-    display: none; /* Hide text when collapsed */
+    display: none;
 }
 
-
-.user-info .user-name {
+.user-name {
   color: var(--text-white);
   font-weight: 600;
-  margin-top: 0; /* Adjusted margin */
-  margin-bottom: 2px;
+  margin: 0 0 2px 0;
   font-size: 0.95rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.user-info .user-role {
+.user-role {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.8rem;
   white-space: nowrap;
@@ -55,37 +53,36 @@
   text-overflow: ellipsis;
 }
 
-/* Navigation List */
+// Navigation List
 .nav-list {
     padding-top: 10px;
 }
 
-/* Style for each navigation item */
+// Style for each navigation item
 .mat-mdc-list-item {
   color: rgba(255, 255, 255, 0.8) !important;
-  height: 48px !important; /* Consistent height */
-  margin: 0 10px 5px 10px !important; /* Add margin */
-  padding: 0 10px 0 16px !important; /* Adjust padding */
-  border-radius: 4px !important;
-  border-left: 4px solid transparent; /* Border for active state */
+  height: 48px !important;
+  margin: 0 10px 5px 10px !important;
+  padding: 0 10px 0 16px !important;
+  border-radius: 8px !important;
+  border-left: 4px solid transparent;
   transition: background-color 0.2s ease, border-left-color 0.2s ease;
 }
 
-/* Remove default padding from list item content */
+// Remove default padding from list item content
 ::ng-deep .mat-mdc-list-item .mdc-list-item__content {
     padding: 0 !important;
 }
 
-
-/* Icon styling */
+// Icon styling
 .mat-mdc-list-item .mat-icon {
   color: rgba(255, 255, 255, 0.7) !important;
-  margin-right: 16px !important; /* Space between icon and text */
-  width: 24px !important; /* Ensure icons align */
+  margin-right: 16px !important;
+  width: 24px !important;
   text-align: center;
 }
 
-/* Text styling */
+// Text styling
 .mat-mdc-list-item .menu-text {
   font-size: 0.95rem;
   white-space: nowrap;
@@ -93,8 +90,8 @@
   text-overflow: ellipsis;
 }
 
-/* Hover state */
-.mat-mdc-list-item:hover {
+// Hover state
+.mat-mdc-list-item:hover, .menu-button:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
   color: var(--text-white) !important;
 }
@@ -102,26 +99,30 @@
     color: var(--text-white) !important;
 }
 
-/* Active link state */
+// Active link state
 .mat-mdc-list-item.active-link {
-  background-color: rgba(255, 255, 255, 0.15) !important;
+  background-color: var(--primary-color) !important;
   color: var(--text-white) !important;
-  border-left-color: var(--primary-color) !important; /* Active border color */
-  font-weight: 500; /* Slightly bolder text */
+  border-left-color: var(--primary-color) !important;
+  font-weight: 500;
 }
 .mat-mdc-list-item.active-link .mat-icon {
     color: var(--text-white) !important;
 }
 
-/* Collapsed state adjustments */
+// Collapsed state adjustments
 :host ::ng-deep .app-sidenav.sidebar-collapsed .mat-mdc-list-item {
     margin: 0 5px 5px 5px !important;
-    padding: 0 !important; /* Remove padding */
-    justify-content: center; /* Center icon */
-    border-left-width: 0 !important; /* Remove border */
+    padding: 0 !important;
+    justify-content: center;
+    border-left-width: 0 !important;
 }
 :host ::ng-deep .app-sidenav.sidebar-collapsed .mat-mdc-list-item .mat-icon {
     margin-right: 0 !important;
-    font-size: 1.3rem; /* Slightly larger icon */
+    font-size: 1.3rem;
 }
 
+// Para que el enlace que no es routerLink se vea igual
+.menu-button {
+    cursor: pointer;
+}
