@@ -9,6 +9,10 @@ import { AbmConsultaUsuarioComponent } from './components/abm-consulta-usuario/a
 import { LstUsuarioComponent } from './components/lst/lst-usuario/lst-usuario.component';
 import { AbmPeritoComponent } from './components/abm-perito/abm-perito.component';
 import { LstPeritosComponent } from './components/lst/lst-peritos/lst-peritos.component';
+import { IndexSiniestroComponent } from './components/index-siniestro/index-siniestro.component';
+import { IncidentFormComponent } from './components/incident-form/incident-form.component';
+import { MapViewComponent } from './components/map-view/map-view.component';
+import { IncidentListComponent } from './components/lst/incident-list/incident-list.component';
 
 
 const routes: Routes = [
@@ -20,6 +24,18 @@ const routes: Routes = [
       {
         path: 'Dashboard',
         component: DashboardComponent,
+      },
+      {
+        path: 'nuevo-siniestro',
+        component: IncidentFormComponent,
+      },
+      {
+        path: 'lista-siniestros',
+        component: IncidentListComponent,
+      },
+      {
+        path: 'nuevo-siniestro/:id',
+        component: SiniestrosComponent,
       },
       {
         path: 'lst-estados',
@@ -34,16 +50,16 @@ const routes: Routes = [
           },
         ],
       },
-      // {
-      //   path: 'mapa',
-      //   children: [
-      //     {
-      //       path: 'abm/:id',
-      //       component: MapViewComponent,
-      //     },
+      {
+        path: 'mapa',
+        children: [
+          {
+            path: '',
+            component: MapViewComponent,
+          },
 
-      //   ],
-      // },
+        ],
+      },
       {
         path: 'busqueda-usuario',
         children: [

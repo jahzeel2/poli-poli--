@@ -15,7 +15,7 @@
       <hr>
       <div class="row">
         <div class="col-md-12">
-          <!-- <app-fil-usuarios-criminalistica (emmit)="doFound($event)"></app-fil-usuarios-criminalistica> -->
+           <app-fil-usuarios-criminalistica (emmit)="doFound($event)"></app-fil-usuarios-criminalistica>
         </div>
 
       </div>
@@ -73,7 +73,7 @@
                 </ng-template>
                 <ng-template #elseTemplate>
                   <button
-                    *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'DEVELOPER'"
+                    *ngIf="this.rol === 2"
                     (click)="preDelete(item)"
                     type="button"
                     title="Inhabilitar Usuario"

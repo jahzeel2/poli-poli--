@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="app-navbar mat-elevation-z4">
+<!-- <mat-toolbar color="primary" class="app-navbar mat-elevation-z4">
   <button mat-icon-button (click)="toggleSidebar()" aria-label="Toggle sidebar">
     <mat-icon>menu</mat-icon>
   </button>
@@ -16,4 +16,35 @@
     <mat-divider></mat-divider>
     <button mat-menu-item (click)="logout()"> <mat-icon>exit_to_app</mat-icon> <span>Cerrar sesión</span> </button>
   </mat-menu>
-</mat-toolbar>
+</mat-toolbar> -->
+<nav class="navbar navbar-dark bg-dark text-xxl-center">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <i class="fa-solid fa-person-military-rifle" style="color: #193ae1;"></i>
+      DEPARTAMENTO POLICIA CIENTIFICA
+    </a>
+    <form class="d-flex">
+      <div class="col-md-12">
+        <label id="ROL" for="Name">
+          USUARIO: <b> {{ rol | uppercase }} </b></label
+        >
+        &nbsp;&nbsp;&nbsp;
+        <label id="label" for="Name">
+          <b> {{ usuario | uppercase }} </b></label
+        >
+        &nbsp; &nbsp;
+        <button
+          (click)="cerrar()"
+          class="btn btn-primary btn-circle"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          title="Cerrar sesión"
+          type="button"
+        >
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+</nav>

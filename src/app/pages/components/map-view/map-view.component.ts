@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 // Fix Leaflet's default icon path issue with webpack
-const iconRetinaUrl = 'assets/marker-icon-2x.png';
-const iconUrl = 'assets/marker-icon.png';
-const shadowUrl = 'assets/marker-shadow.png';
+const iconRetinaUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png';
+const iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png';
+const shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
 const iconDefault = L.icon({
   iconRetinaUrl,
   iconUrl,

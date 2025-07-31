@@ -43,7 +43,7 @@ export class LstUsuarioComponent implements OnInit {
 
   entidad = 'lst-usuarios';
   nombreUsu = '';
-  rol = '';
+  rol = 0;
 
   constructor(
     private wsdl: UsuarioCriminalisticaService,
@@ -53,7 +53,7 @@ export class LstUsuarioComponent implements OnInit {
     this.load = false;
     this.item = new UsuariosCriminalistica();
     this.items = [];
-    //this.rol = "";
+    this.rol = 0;
   }
 
   ngOnInit(): void {

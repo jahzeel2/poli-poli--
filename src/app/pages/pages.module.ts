@@ -41,7 +41,7 @@ import { FliPeritosCrimComponent } from './components/filtros/fli-peritos-crim/f
 import { WgCargandoComponent } from './widgets/wg-cargando/wg-cargando.component';
 import { WgPaginateComponent } from './widgets/wg-paginate/wg-paginate.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
-import { InformesComponent } from './components/informes/informes.component';
+
 import { IndexSiniestroComponent } from './components/index-siniestro/index-siniestro.component';
 import { UploadPhotosComponent } from './components/upload-photos/upload-photos.component';
 import { CondicionesClimaticasComponent } from './components/siniestrosglobal/condiciones-climaticas/condiciones-climaticas.component';
@@ -75,6 +75,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ComboRolComponent } from './components/combo-rol/combo-rol.component';
 
 @NgModule({
   declarations: [
@@ -84,8 +85,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     IncidentListComponent, ListaSiniestrosComponent, LstPeritosComponent, LstUsuarioComponent,
     IncidentDetailDialogComponent, UploadEvidenceDialogComponent, FilUsuarioComponent,
     FilUsuariosCriminalisticaComponent, FliPeritosCrimComponent, WgCargandoComponent,
-    WgPaginateComponent, MapViewComponent, InformesComponent, IndexSiniestroComponent,
-    UploadPhotosComponent, CondicionesClimaticasComponent, DetallesViaComponent,
+    WgPaginateComponent, MapViewComponent,  IndexSiniestroComponent,
+    UploadPhotosComponent, CondicionesClimaticasComponent, DetallesViaComponent,ComboRolComponent
   ],
   imports: [
     CommonModule,

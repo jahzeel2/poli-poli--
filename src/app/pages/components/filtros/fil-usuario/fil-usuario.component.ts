@@ -34,10 +34,11 @@ export class FilUsuarioComponent implements OnInit {
 
     this.isLoading = true;
     try {
-      const data = await lastValueFrom(this.wsdl.doFound(this.search));
+
+      const data = await this.wsdl.doFindDni(this.search).then();
       const result = JSON.parse(JSON.stringify(data));
 
-      if (result && result.code === 200) {
+      if (result.code == '200') {
         this.filter.emit(result.data as Usuario_repo); // Emitir el objeto de usuario
       } else {
         Swal.fire('No encontrado', result.msg, 'error');

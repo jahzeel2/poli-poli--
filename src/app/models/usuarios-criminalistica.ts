@@ -1,5 +1,7 @@
+import { Rol } from "./rol.model";
+
 export class UsuariosCriminalistica {
-    
+
     id!: number;
     userCreaRepo!: any; //usuario que crea el usuario
     usuarioRepo: any;//el usuario creado
@@ -17,13 +19,14 @@ export class UsuariosCriminalistica {
     sistema!: number; /*id de unidad*/
     cifrado: any; /*PARA INGRESAR DESDE EL REPO*/
     fechaVinculacion: any; /*fecha de control para el ingreso*/
-    rol!: number;
-  
+    rol: Rol;
+
     rolNombre!: string; //| undefined
     rolNavigation: any;
     unidadSistemaNavigation: any;
-    
+
     constructor() {
+      this.rol = new Rol();
       this.baja = false;
       this.activo = true;
     }

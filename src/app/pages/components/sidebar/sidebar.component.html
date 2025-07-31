@@ -12,8 +12,8 @@
   </a>
 
   <!-- Nuevo Siniestro (Cargador, Admin, Manager) -->
-  <a mat-list-item routerLink="/pages/nuevo-siniestro" routerLinkActive="active-link"
-     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER, ADMIN' && item?.rolNavigation?.nombre !== 'CARGADOR'"
+  <a mat-list-item routerLink="/nuevo-siniestro" routerLinkActive="active-link"
+     *ngIf="this.rol === 4"
      (click)="menuItemClicked.emit()"
      [matTooltip]="isCollapsed ? 'Nuevo Siniestro' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>add_circle_outline</mat-icon>
@@ -21,8 +21,8 @@
   </a>
 
   <!-- Lista de Siniestros (Admin, Manager, Vista) -->
-  <a mat-list-item routerLink="/pages/siniestros" routerLinkActive="active-link"
-     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER, ADMIN' && item?.rolNavigation?.nombre !== 'VISTA'"
+  <a mat-list-item routerLink="/lista-siniestros" routerLinkActive="active-link"
+     *ngIf="this.rol ===   1 || this.rol === 2 || this.rol === 4 || this.rol === 6 "
     (click)="menuItemClicked.emit()"
     [matTooltip]="isCollapsed ? 'Lista de Siniestros' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>list_alt</mat-icon>
@@ -30,8 +30,8 @@
   </a>
 
   <!-- Mapa (Admin, Manager) -->
-  <a mat-list-item routerLink="/pages/mapa" routerLinkActive="active-link"
-      *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER,ADMIN'"
+  <a mat-list-item routerLink="/mapa" routerLinkActive="active-link"
+      *ngIf="this.rol === 1 || this.rol === 2 || this.rol === 6 "
       (click)="menuItemClicked.emit()"
       [matTooltip]="isCollapsed ? 'Mapa de Incidentes' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>map</mat-icon>
@@ -39,8 +39,8 @@
   </a>
 
   <!-- Usuarios (Admin, Manager) -->
-  <a mat-list-item routerLink="/pages/usuarios" routerLinkActive="active-link"
-     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER,ADMIN'"
+  <a mat-list-item routerLink="lst-usuarios" routerLinkActive="active-link"
+     *ngIf="this.rol === 1 || this.rol === 2 || this.rol === 6 "
     (click)="menuItemClicked.emit()"
     [matTooltip]="isCollapsed ? 'Usuarios' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>people</mat-icon>
@@ -49,7 +49,7 @@
 
   <!-- Subir Evidencia (Fotografo, Admin, Manager) -->
   <a mat-list-item (click)="openUploadEvidenceDialog()"
-     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'MANAGER,ADMIN' && item?.rolNavigation?.nombre !== 'FOTOGRAFO'"
+     *ngIf="this.rol ===   3 "
     [matTooltip]="isCollapsed ? 'Subir Evidencia' : ''" matTooltipPosition="right"
     class="menu-button">
     <mat-icon matListItemIcon>cloud_upload</mat-icon>

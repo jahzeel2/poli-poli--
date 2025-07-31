@@ -53,7 +53,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
 
   public async insertCrimin() {
 
-    this.dtCriminalistica.sistema = Number(JSON.parse(Cifrado.descifrar(''+Utils.getSession('personal'),5)).unidad);;
+    this.dtCriminalistica.sistema = Number(JSON.parse(Cifrado.descifrar(''+Utils.getSession('personal'),5)).unidad);
     console.log(this.dtCriminalistica.sistema,"lezca",);
     //this.dtCentral.userCreaRepo = 1;
     this.dtCriminalistica.userCreaRepo = Utils.getSession('user');
@@ -117,7 +117,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtCriminalistica.apellido = event.civil.apellido;
       this.dtCriminalistica.norDni = event.civil.norDni;
       this.dtCriminalistica.usuarioRepo = event.id;
-      this.dtCriminalistica.rol = event.rol.id;
+      this.dtCriminalistica.rol = event.rol;
       this.dtCriminalistica.rolNombre = event.rol.nombre;
 
     }
@@ -129,7 +129,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtCriminalistica.apellido = event.persona.apellido;
       this.dtCriminalistica.norDni = event.persona.norDni;
       this.dtCriminalistica.usuarioRepo = event.id;
-      this.dtCriminalistica.rol = event.rol.id;
+      this.dtCriminalistica.rol = event.rol;
       this.dtCriminalistica.rolNombre = event.rol.nombre;
 
     }
@@ -138,7 +138,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
   seleccionRol(event: Rol) {
     if (event != undefined) {
       alert(event.id)
-      this.dtCriminalistica.rol = event.id;
+      this.dtCriminalistica.rol = event;
   };
   }
 

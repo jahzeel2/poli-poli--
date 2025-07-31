@@ -1,4 +1,60 @@
-<!-- <div class="dashboard-container">
+<div *ngIf="rol === 4 " class="row" [class.collapsed]="isCollapsed">
+  <a mat-list-item routerLink="/nuevo-siniestro" routerLinkActive="active-link"
+
+     [matTooltip]="isCollapsed ? 'Nuevo Siniestro' : ''" matTooltipPosition="right">
+    <mat-icon matListItemIcon>add_circle_outline</mat-icon>
+    <span class="menu-text" *ngIf="!isCollapsed">Nuevo Siniestro</span>
+  </a>
+</div>
+<div *ngIf="rol === 5 " class="row" [class.collapsed]="isCollapsed"> <div class="col-md-8 mb-4">
+      <mat-card class="mat-elevation-z4">
+        <mat-card-header class="card-header-custom d-flex justify-content-between align-items-center">
+          <mat-card-title class="mb-0"><mat-icon>list_alt</mat-icon> Siniestros Recientes</mat-card-title>
+          <button mat-button color="primary" (click)="navigateToIncidentList()">Ver Todo</button>
+        </mat-card-header>
+        <mat-card-content class="p-0 position-relative">
+           <div *ngIf="isLoadingSiniestros" class="loading-shade"> <mat-spinner diameter="50"></mat-spinner> </div>
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource" matSort #recentSort="matSort" class="w-100">
+              <ng-container matColumnDef="id_expediente"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Nº Exp. </th> <td mat-cell *matCellDef="let element"> {{element.id_expediente}} </td> </ng-container>
+              <ng-container matColumnDef="lugar"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicación </th> <td mat-cell *matCellDef="let element" [matTooltip]="element.lugar || ''"> {{(element.lugar || 'N/D') | slice:0:30}}{{ (element.lugar?.length || 0) > 30 ? '...' : '' }} </td> </ng-container>
+              <ng-container matColumnDef="fechaHecho"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Hecho </th> <td mat-cell *matCellDef="let element"> {{element.fechaHecho | date:'dd/MM/yy':'UTC'}} </td> </ng-container> <ng-container matColumnDef="estadoNombre"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th> <td mat-cell *matCellDef="let element"> <mat-chip-option [color]="getChipColor(element.estadoNombre)" selected disabled>{{element.estadoNombre || 'N/D'}}</mat-chip-option> </td> </ng-container>
+              <ng-container matColumnDef="acciones"> <th mat-header-cell *matHeaderCellDef> Acciones </th> <td mat-cell *matCellDef="let element">  </td> </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow> <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length"> {{ isLoadingSiniestros ? 'Cargando...' : 'No hay siniestros recientes.' }} </td> </tr>
+            </table>
+          </div>
+          </mat-card-content>
+      </mat-card>
+    </div></div>
+   <div *ngIf="rol === 3 " class="row" [class.collapsed]="isCollapsed"> <button   mat-stroked-button color="primary" (click)="openUploadEvidenceDialog()"><mat-icon>cloud_upload</mat-icon> Subir Evidencia</button>
+     <div class="col-md-8 mb-4">
+      <mat-card class="mat-elevation-z4">
+        <mat-card-header class="card-header-custom d-flex justify-content-between align-items-center">
+          <mat-card-title class="mb-0"><mat-icon>list_alt</mat-icon> Siniestros Recientes</mat-card-title>
+          <button mat-button color="primary" (click)="navigateToIncidentList()">Ver Todo</button>
+        </mat-card-header>
+        <mat-card-content class="p-0 position-relative">
+           <div *ngIf="isLoadingSiniestros" class="loading-shade"> <mat-spinner diameter="50"></mat-spinner> </div>
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource" matSort #recentSort="matSort" class="w-100">
+              <ng-container matColumnDef="id_expediente"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Nº Exp. </th> <td mat-cell *matCellDef="let element"> {{element.id_expediente}} </td> </ng-container>
+              <ng-container matColumnDef="lugar"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicación </th> <td mat-cell *matCellDef="let element" [matTooltip]="element.lugar || ''"> {{(element.lugar || 'N/D') | slice:0:30}}{{ (element.lugar?.length || 0) > 30 ? '...' : '' }} </td> </ng-container>
+              <ng-container matColumnDef="fechaHecho"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Hecho </th> <td mat-cell *matCellDef="let element"> {{element.fechaHecho | date:'dd/MM/yy':'UTC'}} </td> </ng-container> <ng-container matColumnDef="estadoNombre"> <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th> <td mat-cell *matCellDef="let element"> <mat-chip-option [color]="getChipColor(element.estadoNombre)" selected disabled>{{element.estadoNombre || 'N/D'}}</mat-chip-option> </td> </ng-container>
+              <ng-container matColumnDef="acciones"> <th mat-header-cell *matHeaderCellDef> Acciones </th> <td mat-cell *matCellDef="let element">  </td> </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow> <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length"> {{ isLoadingSiniestros ? 'Cargando...' : 'No hay siniestros recientes.' }} </td> </tr>
+            </table>
+          </div>
+          </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+<div *ngIf="rol === 1 || rol == 2" class="dashboard-container" [class.collapsed]="isCollapsed">
+
+<div class="dashboard-container">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1><mat-icon>speed</mat-icon> Dashboard  </h1>
     <button mat-raised-button color="primary" (click)="navigateToNewIncident()">
@@ -44,7 +100,7 @@
           <button mat-stroked-button color="primary" (click)="navigateToNewIncident()"><mat-icon>add</mat-icon> Nuevo Siniestro</button>
           <button mat-stroked-button color="primary"><mat-icon>search</mat-icon> Buscar Siniestro</button>
           <button mat-stroked-button color="primary"><mat-icon>picture_as_pdf</mat-icon> Generar Informe</button>
-          <button mat-stroked-button color="primary" (click)="openUploadEvidenceDialog()"><mat-icon>cloud_upload</mat-icon> Subir Evidencia</button>
+          <button   mat-stroked-button color="primary" (click)="openUploadEvidenceDialog()"><mat-icon>cloud_upload</mat-icon> Subir Evidencia</button>
         </mat-card-content>
       </mat-card>
 
@@ -83,17 +139,17 @@
         </mat-card>
       </div>
   </div>
-</div> -->
-<!-- <div class="user-info" [class.collapsed]="isCollapsed">
+</div>
+<div class="user-info" [class.collapsed]="isCollapsed">
 
-  <div class="user-details" *ngIf="!isCollapsed && currentUser">
-    <h6 class="user-name">{{ currentUser.apellido || '' }}, {{ currentUser.nombre || '' }}</h6>
-     <span class="user-role">{{ currentUser.rol?.nombre }}</span> 
+  <div class="user-details" *ngIf="!isCollapsed && this.nombre">
+    <h6 class="user-name">{{ this.nombre || '' }}, {{ nombreUsu || '' }}</h6>
+     <span class="user-role">{{ this.rol || 'nada' }}</span>
   </div>
-</div> -->
+</div>
 
-<mat-nav-list class="nav-list">
-  <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link"
+<!-- <mat-nav-list class="nav-list">
+  <a mat-list-item routerLink="/Dashboard" routerLinkActive="active-link"
      [matTooltip]="isCollapsed ? 'Dashboard' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>speed</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Dashboard</span>
@@ -107,32 +163,33 @@
   </a>
 
   <a mat-list-item routerLink="/siniestros" routerLinkActive="active-link"
-     *ngIf="item.nombre != nombreUsu && item?.rolNavigation?.nombre !== 'ROLES.VISTA, ROLES.ADMIN, ROLES.MANAGER'"
+     *ngIf="this.rol !== 'MANAGER'"
+
      [matTooltip]="isCollapsed ? 'Lista de Siniestros' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>list_alt</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Lista de Siniestros</span>
   </a>
 
    <a mat-list-item routerLink="/mapa" routerLinkActive="active-link"
-      *ngIf="item?.rolNavigation.nombre !== 'ROLES.ADMIN, ROLES.MANAGER'"
+      *ngIf="this.rol !== 'MANAGER'"
       [matTooltip]="isCollapsed ? 'Mapa de Incidentes' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>map</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Mapa de Incidentes</span>
   </a>
 
   <a mat-list-item routerLink="/usuarios" routerLinkActive="active-link"
-     *ngIf="item?.rolNavigation.nombre !== 'ROLES.ADMIN, ROLES.MANAGER'"
+     *ngIf="this.rol !== 'MANAGER'"
      [matTooltip]="isCollapsed ? 'Usuarios' : ''" matTooltipPosition="right">
     <mat-icon matListItemIcon>people</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Usuarios</span>
   </a>
 
   <a mat-list-item (click)="openUploadEvidenceDialog()" routerLinkActive="active-link"
-     *ngIf="item?.rolNavigation.nombre !== 'ROLES.FOTOGRAFO, ROLES.ADMIN, ROLES.MANAGER'"
+     *ngIf="this.rol !== 'MANAGER'"
      [matTooltip]="isCollapsed ? 'Subir Evidencia' : ''" matTooltipPosition="right"
      style="cursor: pointer;">
     <mat-icon matListItemIcon>cloud_upload</mat-icon>
     <span class="menu-text" *ngIf="!isCollapsed">Subir Evidencia</span>
   </a>
 
-</mat-nav-list>
+</mat-nav-list> -->

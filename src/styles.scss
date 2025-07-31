@@ -5,16 +5,20 @@
 /* Importar estilos de Leaflet para los mapas */
 @import 'leaflet/dist/leaflet.css';
 
+/* Importar Bootstrap Icons (asegúrate de haberlo instalado con 'npm install bootstrap-icons') */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
 /* Variables de Color (basado en tu diseño deseado) */
 :root {
   --primary-color: #0d6efd;
   --success-color: #198754;
   --warning-color: #ffc107;
   --danger-color: #dc3545;
-  --dark-color: #212529;
+  --dark-color: #202069;   /* Color para el Sidebar */
   --light-color: #f4f6f9; /* Fondo principal del contenido */
   --text-dark: #212529;
   --text-white: #ffffff;
+  --text-muted: #6c757d;
 }
 
 /* Estilos base del Body */
@@ -27,11 +31,18 @@ body {
   background-color: var(--light-color);
 }
 
-/* Clases de ayuda para fondos */
+/* Clases de ayuda para fondos (útiles para tarjetas y badges) */
 .bg-primary { background-color: var(--primary-color) !important; color: var(--text-white) !important; }
 .bg-success { background-color: var(--success-color) !important; color: var(--text-white) !important; }
 .bg-warning { background-color: var(--warning-color) !important; color: var(--text-dark) !important; }
 .bg-danger { background-color: var(--danger-color) !important; color: var(--text-white) !important; }
+.bg-light { background-color: var(--light-color) !important; color: var(--text-dark) !important; }
+.bg-dark { background-color: var(--dark-color) !important; color: var(--text-light) !important; }
+
+.text-white { color: var(--text-white) !important; }
+.text-dark { color: var(--text-dark) !important; }
+.text-light { color: var(--text-light) !important; }
+.text-muted { color: var(--text-muted) !important; }
 
 /* Sobrescribir estilos de Angular Material para consistencia */
 .mat-mdc-card {
@@ -42,6 +53,13 @@ body {
 
 .mat-mdc-raised-button.mat-primary {
   background-color: var(--primary-color) !important;
+}
+.mat-mdc-raised-button.mat-warn {
+  background-color: var(--danger-color) !important;
+}
+.mat-mdc-raised-button.mat-accent {
+    background-color: var(--warning-color) !important;
+    color: var(--text-dark) !important;
 }
 
 /* Estilos para la tabla de Material */

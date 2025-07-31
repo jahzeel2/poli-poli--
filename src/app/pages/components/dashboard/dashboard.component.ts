@@ -35,8 +35,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   items: UsuariosCriminalistica[];
   item: UsuariosCriminalistica;
 
-
-
+dtCriminalistica!: UsuariosCriminalistica;
+ proceso: Boolean;
+  //tipoPersona: string;
+  rol: number;
   crit: any;
   procesando!: Boolean;
   public load!: boolean;
@@ -49,7 +51,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   entidad = 'lst-usuarios';
   nombreUsu = '';
-  rol = '';
+
 
   stats = { total: 0, completed: 0, inProgress: 0, pending: 0 };
 
@@ -61,7 +63,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   notifications: any[] = [];
   isLoadingNotifications = false;
-
+usuario: string;
   private subscriptions = new Subscription();
 
 
@@ -78,12 +80,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.load = false;
     this.item = new UsuariosCriminalistica();
     this.items = [];
+    this.proceso = false;
+this.rol = 0;
+this.usuario = '';
     }
 
   ngOnInit(): void {
 this.rol = JSON.parse(
       Cifrado.descifrar('' + Utils.getSession('personal'), 5)
-    ).rol,
+    ).rol;
     //let persona = JSON.parse(Cifrado.descifrar(''+Utils.getSession('personal'),5))
     this.nombreUsu =
       JSON.parse(Cifrado.descifrar('' + Utils.getSession('personal'), 5))
@@ -93,10 +98,11 @@ this.rol = JSON.parse(
         .nombre,
     this.loadInitialData();
     this.setupPolling();
+    console.log(this.nombreUsu, this.rol);
   }
 
   ngOnDestroy(): void {
-    
+
   }
 
   loadInitialData(): void {
@@ -133,6 +139,7 @@ this.rol = JSON.parse(
   }
 
   loadRecentActivity(): void {
+
       this.isLoadingNotifications = true;
      const sub = this.apiService.getRecentActivity(10).subscribe({
         next: (data) => {
@@ -224,7 +231,7 @@ this.rol = JSON.parse(
     }).then((result) => {
       if (result.isConfirmed) {
         this.isLoadingSiniestros = true;
-        const usuarioActual = 'UsuarioAngular';
+        const usuarioActual = this.nombreUsu;
         this.apiService.deleteSiniestro(incidentId, usuarioActual).subscribe({
           next: (response) => {
             this.isLoadingSiniestros = false;

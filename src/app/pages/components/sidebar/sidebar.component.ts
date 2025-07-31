@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UsuariosCriminalistica } from 'src/app/models/usuarios-criminalistica';
 import { ApiService } from 'src/app/services/api.service';
-import { AuthService, UserProfile } from 'src/app/services/auth.service';
+
 import { RegistroUsuarioService } from 'src/app/services/registro-usuario.service';
 import { UsuarioCriminalisticaService } from 'src/app/services/usuario-criminalistica.service';
 import { Cifrado } from 'src/app/utils/cifrado';
@@ -41,7 +41,7 @@ export class SidebarComponent {
 
   entidad = 'lst-usuarios';
   nombreUsu = '';
-  rol = '';
+  rol = 0;
 
   notifications: any[] = [];
   isLoadingNotifications = false;
@@ -57,6 +57,7 @@ private subscriptions = new Subscription();
  this.load = false;
     this.item = new UsuariosCriminalistica();
     this.items = [];
+    this.rol = 0;
 }
 
  ngOnInit(): void {

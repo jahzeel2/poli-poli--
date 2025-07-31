@@ -61,8 +61,8 @@ export class FilUsuariosCriminalisticaComponent implements OnInit {
 
     try {
       if (this.busqueda == '' || this.busqueda == undefined) {
-        let data = await this.wsdl.getList(this.paginaActual, this.limit,this.unidad)
-          .then();
+        let data = await this.wsdl.getList()
+          ;
           const result = JSON.parse(JSON.stringify(data));
           console.log(data,"22222222222");
 

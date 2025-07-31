@@ -8,7 +8,7 @@
 // }
 export class ConcxionApi {
 
-// static URL='https://policiadigitalchaco.com.ar/CRIMINALISTICAAPI/api/';
+// static URL='https://policiadigitalchaco.com.ar/api_criminalistarcia/';
 static URLRegBus= 'https://policiadigital.chaco.gob.ar:9090/api_registroUsuario/';
 static URLCivil: 'https://policiadigital.chaco.gob.ar:9090/api_civil/';
 static URLRealJava:'http://192.168.0.34:3001/';

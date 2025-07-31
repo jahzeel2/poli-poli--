@@ -1,0 +1,18 @@
+<div class="col-md-12">
+    <div class="control-group">
+      <div class="form-group controls">
+        <label class="col-sm-12 col-form-label"><b>Seleccione Rol del usuario:</b></label>
+        <select
+          (ngModelChange)="capturar($event)"
+          name="item"
+          [(ngModel)]="item"
+          [compareWith]="compareWitch"
+          class="form-select form-select-lm mb-3" aria-label=".form-select-lg example"
+        >
+          <option class="text-center" *ngFor="let item of items" [ngValue]="item">
+          {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>

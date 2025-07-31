@@ -1,5 +1,9 @@
 @import "~leaflet/dist/leaflet.css";
 
+#map-full {
+  height: 600px;
+  width: 100%;
+}
 .map-view-container {
   padding: 10px;
 }

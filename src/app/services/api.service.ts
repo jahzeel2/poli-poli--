@@ -10,7 +10,8 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  private readonly API_BASE_URL = 'http://127.0.0.1:5000';
+   private readonly API_BASE_URL = //'https://policiadigitalchaco.com.ar/api_criminalistarcia/';
+  'http://127.0.0.1:5000';
    // O 127.0.0.1:5000;
 
   constructor(private http: HttpClient) { }

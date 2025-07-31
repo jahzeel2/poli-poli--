@@ -9,6 +9,8 @@ import { catchError, finalize, forkJoin, Observable, of, Subscription } from 'rx
  // Import ApiService
 import { MatStepper } from '@angular/material/stepper'; // Import MatStepper
 import { ApiService } from 'src/app/services/api.service';
+import { Utils } from 'src/app/utils/utils';
+import { Cifrado } from 'src/app/utils/cifrado';
 
 // Fix Leaflet's default icon path issue
 const iconRetinaUrl = 'assets/marker-icon-2x.png'; const iconUrl = 'assets/marker-icon.png'; const shadowUrl = 'assets/marker-shadow.png';
@@ -31,7 +33,8 @@ export class IncidentFormComponent implements OnInit, AfterViewInit, OnDestroy {
   detallesCondicionesForm: FormGroup;
   involucradosForm: FormGroup;
   firmaForm: FormGroup;
-
+nombreUsu = '';
+  rol = '';
   isLoading = false;
   isLoadingDropdowns = false;
   isLinear = true; // Empezar lineal, cambiar a false si editamos
@@ -62,6 +65,8 @@ export class IncidentFormComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {
+    this.rol = '';
+this.nombreUsu = '';
     // Initialize Forms
     this.informacionBasicaForm = this.fb.group({
         fecha: [this.formatDate(new Date()), Validators.required], hora: [this.formatTime(new Date())], tipo: ['', Validators.required],
@@ -83,6 +88,20 @@ export class IncidentFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+this.rol = JSON.parse(
+
+      Cifrado.descifrar('' + Utils.getSession('personal'), 5)
+    ).rol,
+    //let persona = JSON.parse(Cifrado.descifrar(''+Utils.getSession('personal'),5))
+    this.nombreUsu =
+      JSON.parse(Cifrado.descifrar('' + Utils.getSession('personal'), 5))
+        .apellido +
+      ' ' +
+      JSON.parse(Cifrado.descifrar('' + Utils.getSession('personal'), 5))
+        .nombre,
+
+
     this.loadDropdownData(); // Cargar dropdowns
 
     // Leer ID de la ruta usando el Observable paramMap
@@ -272,6 +291,7 @@ export class IncidentFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // --- Form Submission ---
   async submitForm(): Promise<void> {
+    
     const firmaRequerida = !this.isEditing && this.signaturePad.isEmpty();
     if (firmaRequerida) {
         Swal.fire('Firma Requerida', 'Firma requerida para crear.', 'warning');
@@ -303,7 +323,7 @@ export class IncidentFormComponent implements OnInit, AfterViewInit, OnDestroy {
         next: (response) => {
             const message = this.isEditing ? 'Siniestro actualizado.' : `Siniestro registrado #${response.id_expediente}`;
             Swal.fire('¡Éxito!', message, 'success');
-            this.router.navigate(['/siniestros']); // Volver a la lista
+            this.router.navigate(['/Dashboard']); // Volver a la lista
         },
         error: (err) => {
             console.error(`Error al ${this.isEditing ? 'actualizar' : 'crear'} siniestro:`, err);
@@ -318,8 +338,8 @@ export class IncidentFormComponent implements OnInit, AfterViewInit, OnDestroy {
           ...this.informacionBasicaForm.value, ...this.ubicacionForm.getRawValue(),
           ...this.detallesCondicionesForm.value, ...this.involucradosForm.value,
           firma: this.signaturePad.isEmpty() ? null : this.signaturePad.toDataURL(),
-          usuarioModifica: this.isEditing ? 'UsuarioAngular' : undefined, // TODO: User real
-          usuarioCrea: this.isEditing ? undefined : 'UsuarioAngular' // TODO: User real
+          // usuarioModifica: this.isEditing ? 'UsuarioAngular' : undefined, // TODO: User real
+          usuarioCrea: this.isEditing ? undefined : this.nombreUsu // TODO: User real
        };
        formData.coord = (formData.latitude && formData.longitude) ? `${formData.latitude},${formData.longitude}` : null;
        delete formData.latitude; delete formData.longitude;

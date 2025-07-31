@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ConcxionApi } from 'src/app/utils/concxion-api';
 import { Utils } from 'src/app/utils/utils';
 
@@ -42,19 +43,21 @@ doLoginId(cifrado: any) {
         };
     });
 }
-getList(page: any, cantidad: any, unidad:any) {
-    this.other_header = this.other_header;
-    return this.http
-    .get(this.api +"/paginate/"+ page+"," +cantidad + ","+ unidad)
-    .toPromise()
-    .catch((err) => {
-        return {
-        code: 500,
-        data: err.message,
-        msg: 'Error en el servicio',
-        };
-    });
-}
+getList(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.api}/usuarios`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Ocurrió un error desconocido.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Error del lado del cliente: ${error.error.message}`;
+        } else {
+          errorMessage = `Error del servidor: ${error.status} - ${error.error?.message || error.statusText}`;
+        }
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+
 
 doInsert(evento: object){
 this.other_header = this.other_header;
@@ -135,3 +138,5 @@ this.other_header = this.other_header;
     });
 }
 }
+
+

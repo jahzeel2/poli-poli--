@@ -7,9 +7,7 @@ import { Utils } from 'src/app/utils/utils';
 providedIn: 'root',
 })
 export class RegistroUsuarioService {
-doFound(search: string): import("rxjs").Observable<unknown> {
-  throw new Error('Method not implemented.');
-}
+
 other_header: any;
 api;
 

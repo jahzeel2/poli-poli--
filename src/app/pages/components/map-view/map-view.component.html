@@ -10,10 +10,10 @@
           <div class="col-md-5 mb-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Fecha Desde</mat-label>
-              <input matInput [matDatepicker]="pickerDesde" formControlName="fechaInicio" required>
+              <input matInput [matDatepicker]="pickerDesde" formControlName="fechaInicioObj" required>
               <mat-datepicker-toggle matIconSuffix [for]="pickerDesde"></mat-datepicker-toggle>
               <mat-datepicker #pickerDesde></mat-datepicker>
-              <mat-error *ngIf="filterForm.get('fechaInicio')?.hasError('required')">
+              <mat-error *ngIf="filterForm.get('fechaInicioObj')?.hasError('required')">
                 Fecha de inicio requerida
               </mat-error>
             </mat-form-field>
@@ -21,10 +21,10 @@
           <div class="col-md-5 mb-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Fecha Hasta</mat-label>
-              <input matInput [matDatepicker]="pickerHasta" formControlName="fechaFin" required>
+              <input matInput [matDatepicker]="pickerHasta" formControlName="fechaFinObj" required>
               <mat-datepicker-toggle matIconSuffix [for]="pickerHasta"></mat-datepicker-toggle>
               <mat-datepicker #pickerHasta></mat-datepicker>
-               <mat-error *ngIf="filterForm.get('fechaFin')?.hasError('required')">
+               <mat-error *ngIf="filterForm.get('fechaFinObj')?.hasError('required')">
                 Fecha de fin requerida
               </mat-error>
             </mat-form-field>

@@ -24,7 +24,7 @@ ngOnInit() {
       hora: ['', [Validators.required]],
       numeroIntervencion: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       lugar: ['', [Validators.required]],
-      coordenadas: ['', [Validators.pattern(/^[+]{0,1}\d{1,15}[.]{0,1}\d{0,15}$/)]], // Validación básica coordenadas
+      coordenadas: ['', [Validators.required]], // Validación básica coordenadas
       localidad: ['', [Validators.required]],
       escribiente: ['', [Validators.required]]
     });
@@ -36,7 +36,9 @@ ngOnInit() {
   }
 
   onSubmit() {
+
     if (this.siniestroForm.valid) {
+      alert('Formulario enviado');
       this.nextStep.emit(this.siniestroForm.value);
     } else {
       this.markFormGroupTouched(this.siniestroForm);
