@@ -7,6 +7,12 @@ import jsPDF from 'jspdf';
 import { finalize, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
+import autoTable from 'jspdf-autotable'; // <-- 1. IMPORTACIÓN CORREGIDA
+
+
+
+
+
 
 @Component({
   selector: 'app-reportes',
