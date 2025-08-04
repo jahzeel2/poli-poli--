@@ -32,7 +32,7 @@ export class FilUsuariosCriminalisticaComponent implements OnInit {
     this.busqueda = '';
     this.items = [];
 
-    this.limit = 5;
+    this.limit = 25;
     this.paginaActual = 1;
     this.siguiente = false;
     this.anterior = false;

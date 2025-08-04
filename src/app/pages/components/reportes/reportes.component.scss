@@ -1,0 +1,45 @@
+.reportes-container {
+    padding: 10px;
+}
+
+.reportes-container h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #333;
+}
+.reportes-container h1 mat-icon {
+    margin-right: 10px;
+    font-size: 1.8rem;
+    vertical-align: middle;
+}
+
+.filter-card .mat-mdc-card-title {
+    font-size: 1.1rem;
+}
+
+.loading-shade {
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Spinner dentro del botón de generar */
+button[mat-raised-button] mat-progress-spinner {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px; /* Centrar spinner */
+}
+
+/* Clases de utilidad */
+.position-relative { position: relative; }
+.card-header-custom {
+    background-color: #f8f9fa !important;
+    padding: 0.75rem 1.25rem !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}

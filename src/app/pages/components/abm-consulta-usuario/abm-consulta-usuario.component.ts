@@ -84,7 +84,15 @@ export class AbmConsultaUsuarioComponent implements OnInit {
           timer: 1500,
         });
         this.back();
-      } else {
+      } else if (res.code == 202) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Usuario editado correctamente!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.back();
       }
     } catch (error) {}
   }
@@ -137,8 +145,9 @@ export class AbmConsultaUsuarioComponent implements OnInit {
 
   seleccionRol(event: Rol) {
     if (event != undefined) {
-      alert(event.id)
+      // alert(event.id)
       this.dtCriminalistica.rol = event;
+
   };
   }
 

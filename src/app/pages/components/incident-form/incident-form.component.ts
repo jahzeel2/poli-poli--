@@ -112,6 +112,12 @@ this.rol = JSON.parse(
             this.isEditing = true;
             this.isLinear = false; // Permitir navegar libremente al editar
             console.log(`Modo Edición - Cargando datos para Siniestro ID: ${this.editingIncidentId}`);
+              const payload: { [key: string]: any } = {};
+
+    // 1. Añadimos el nombre del usuario logueado al payload
+    // Asegúrate que la clave 'usuarioModificacion' coincida con lo que espera tu backend.
+    payload['usuarioModifica'] = this.nombreUsu;
+
             this.loadIncidentData(this.editingIncidentId);
         } else {
             this.isEditing = false;
@@ -291,7 +297,7 @@ this.rol = JSON.parse(
 
   // --- Form Submission ---
   async submitForm(): Promise<void> {
-    
+  const usuarioActual = this.nombreUsu;
     const firmaRequerida = !this.isEditing && this.signaturePad.isEmpty();
     if (firmaRequerida) {
         Swal.fire('Firma Requerida', 'Firma requerida para crear.', 'warning');
@@ -307,10 +313,15 @@ this.rol = JSON.parse(
     }
 
     this.isLoading = true;
+
+
+
+
     const formData = this.prepareFormData();
 
     let apiCall: Observable<any>;
     if (this.isEditing && this.editingIncidentId) {
+
         console.log(`Enviando ACTUALIZACIÓN ID: ${this.editingIncidentId}`);
         if(this.signaturePad.isEmpty()){ delete formData.firma; }
         apiCall = this.apiService.updateSiniestro(this.editingIncidentId, formData);
@@ -338,8 +349,8 @@ this.rol = JSON.parse(
           ...this.informacionBasicaForm.value, ...this.ubicacionForm.getRawValue(),
           ...this.detallesCondicionesForm.value, ...this.involucradosForm.value,
           firma: this.signaturePad.isEmpty() ? null : this.signaturePad.toDataURL(),
-          // usuarioModifica: this.isEditing ? 'UsuarioAngular' : undefined, // TODO: User real
-          usuarioCrea: this.isEditing ? undefined : this.nombreUsu // TODO: User real
+           usuarioModifica: this.isEditing ? undefined : this.nombreUsu,
+          usuarioCrea: this.isEditing ? undefined : this.nombreUsu
        };
        formData.coord = (formData.latitude && formData.longitude) ? `${formData.latitude},${formData.longitude}` : null;
        delete formData.latitude; delete formData.longitude;

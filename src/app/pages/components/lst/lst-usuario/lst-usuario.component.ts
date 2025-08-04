@@ -84,6 +84,7 @@ export class LstUsuarioComponent implements OnInit {
       cancelButtonColor: '#d33',
     }).then((result) => {
       if (result.value) {
+
         this.delete();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Utils.showToas('Operacion cancelada', 'warning');
@@ -93,6 +94,7 @@ export class LstUsuarioComponent implements OnInit {
 
   async delete() {
     try {
+
       this.procesando = true;
       this.item.baja = true;
       this.item.usuarioBaja = Number(Utils.getSession('user'));
@@ -100,23 +102,7 @@ export class LstUsuarioComponent implements OnInit {
       const res = await this.wsdl.doUpdateBaja(this.item.id, this.item).then();
       const result = JSON.parse(JSON.stringify(res));
       if (result.code == 200) {
-        try {
-          let data = await this.wsdlRegistro
-            .patchSistemaHabilitados(
-              this.item.usuarioRepo,
-              this.nombre,
-              this.url,
-              this.activoSistema
-            )
-            .then();
-          let res = JSON.parse(JSON.stringify(data));
-          //console.log('resultadoasa', result);
-          if (res.code == 200) {
-           // console.log('Personal inhabilitado');
-          }
-        } catch (error) {
-          console.log('respuestaerror', error);
-        }
+
         Utils.showToas('Usuario inhabilitado correctamente!', 'success');
         this.cancel();
       } else {
@@ -172,7 +158,7 @@ export class LstUsuarioComponent implements OnInit {
         }
       });
       if(!bandera){
-        alert("No existe dato")
+       
       }
     }else {
       this.fil.filter();

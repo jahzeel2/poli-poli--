@@ -47,9 +47,9 @@ export class ComboRolComponent implements OnInit {
    // let listar = this.wsdl.getList();
 
     const dato = await this.wsdl.getList();
-
+console.log(dato, "lezca");
     const result = JSON.parse(JSON.stringify(dato));
- 
+
     if (result.code === 200) {
 
       this.items = result.data;

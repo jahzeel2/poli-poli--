@@ -29,7 +29,7 @@
               <th>Nombre</th>
               <th>DNI</th>
               <th>Permiso</th>
-              <th>Tipo Usuario</th>
+              <!-- <th>Tipo Usuario</th> -->
             </tr>
           </thead>
           <tbody class="text-center">
@@ -58,42 +58,27 @@
                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </button>
                       &nbsp; -->
-                      <button
-                        (click)="preDelete(item)"
-                        type="button"
-                        title="Inhabilitar Usuario"
-                        placement="top"
-                        show-delay="10"
-                        class="btn btn-outline-danger btn-sm"
-                      >
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                      </button>
+                      <button mat-icon-button color="warn" (click)="preDelete(item)"
+                 *ngIf="this.rol === 2 || this.rol === 1"
+                  matTooltip="Eliminar"><mat-icon>delete_outline</mat-icon></button>
                     </div>
                   </div>
                 </ng-template>
                 <ng-template #elseTemplate>
-                  <button
-                    *ngIf="this.rol === 2"
-                    (click)="preDelete(item)"
-                    type="button"
-                    title="Inhabilitar Usuario"
-                    placement="top"
-                    show-delay="10"
-                    class="btn btn-outline-danger btn-sm"
-                  >
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                  </button>
+                <button mat-icon-button color="warn" (click)="preDelete(item)"
+                 *ngIf="this.rol === 2 || this.rol === 1"
+                  matTooltip="Eliminar"><mat-icon>delete_outline</mat-icon></button>
                 </ng-template>
               </td>
               <td>{{ item?.apellido }}</td>
               <td>{{ item?.nombre }}</td>
               <td>{{ item?.norDni }}</td>
               <td class="text-primary">
-                <!-- <b>{{ item?.rolNavigation?.nombre  |uppercase}}</b> -->
+                <b>{{ item?.nombreRol }}</b>
               </td>
-              <td class="text-success">
+              <!-- <td class="text-success">
                 <b>{{tipoUsuario(item?.tipoPersona) }}</b>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -161,3 +146,4 @@
       </div>
     </div>
   </div>
+

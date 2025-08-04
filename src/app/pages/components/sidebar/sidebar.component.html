@@ -56,4 +56,13 @@
     <span class="menu-text" *ngIf="!isCollapsed">Subir Evidencia</span>
   </a>
 
+<a mat-list-item routerLink="auditoria" routerLinkActive="active-link"
+     *ngIf="this.rol === 1 || this.rol === 2"
+    (click)="menuItemClicked.emit()"
+    [matTooltip]="isCollapsed ? 'auditoria' : ''" matTooltipPosition="right">
+    <mat-icon matListItemIcon>people</mat-icon>
+    <span class="menu-text" *ngIf="!isCollapsed">Auditoria</span>
+  </a>
+
+
 </mat-nav-list>
